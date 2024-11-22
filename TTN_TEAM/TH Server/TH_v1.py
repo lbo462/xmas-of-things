@@ -19,18 +19,12 @@ def on_connect(client, userdata, flags, reason_code, properties):
 
 def on_message(client, userdata, msg):
 
-    print("ici")
-    print(msg)
     
-    #p = json.loads(msg.payload)
-    #
-    temperatures.append(p["uplink_message"]["decoded_payload"]["temperature"])
-    #times.append(datetime.datetime.now())
-#
-    #fig, ax = plt.subplots()
-    #ax.plot(times, temperatures)
-#
-    #plt.show()
+    p = json.loads(msg.payload)
+    
+    humidity = p["uplink_message"]["decoded_payload"]["humidity"]
+
+    print(humidity)
     
 
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
