@@ -3,7 +3,7 @@ import datetime
 import paho.mqtt.client as mqtt
 
 
-
+DEVICES
 
 APP_ID="sensor-downlink@ttn"
 ACCESS_KEY = "NNSXS.HTPOIGZA2Q6TSEOUESE5VABHALWKTHDMTYLW3TA.CATEX5UKOFMQG5HVZSG3P3VY3WORZVQ32R56BXJMY7TK4A5VIPXA"
@@ -13,8 +13,6 @@ print(TOPIC)
 
 def on_connect(client, userdata, flags, reason_code, properties):
     print(f"Connected with result code {reason_code}")
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
     client.subscribe(TOPIC)
 
 def on_message(client, userdata, msg):
