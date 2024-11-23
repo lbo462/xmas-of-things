@@ -24,7 +24,7 @@ sensors_topic = Topic(
     tenant_id=TTN_TENANT_ID,
     device_id="sensor-test",
     type_=TopicTypesEnum.UP,
-    payload_model=SensorsTTNPayload
+    payload_model=SensorsTTNPayload,
 )
 
 actions_topic = Topic(
@@ -32,7 +32,7 @@ actions_topic = Topic(
     tenant_id=TTN_TENANT_ID,
     device_id="sensor-test",
     type_=TopicTypesEnum.DOWN_PUSH,
-    payload_model=ActionsTTNPayload
+    payload_model=ActionsTTNPayload,
 )
 
 actions_queued_topic = Topic(
@@ -40,5 +40,5 @@ actions_queued_topic = Topic(
     tenant_id=TTN_TENANT_ID,
     device_id="sensor-test",
     type_=TopicTypesEnum.DOWN_QUEUED,
-    payload_model=ActionsTTNPayload
+    payload_model=ActionsTTNPayload,
 )

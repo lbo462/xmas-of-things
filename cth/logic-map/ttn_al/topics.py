@@ -18,9 +18,11 @@ def uplink_topic_extractor(payload: str | bytes | bytearray) -> Dict:
     decoded_payload = json.loads(payload)
     return decoded_payload["uplink_message"]["decoded_payload"]
 
+
 def downlink_topic_extractor(payload: str | bytes | bytearray) -> Dict:
     decoded_payload = json.loads(payload)
     return decoded_payload["downlink_queued"]["decoded_payload"]
+
 
 class TopicTypesEnum(Enum):
     """All the different types of topics"""

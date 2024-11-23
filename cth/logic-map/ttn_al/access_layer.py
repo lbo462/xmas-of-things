@@ -107,13 +107,15 @@ class TTNAccessLayer:
 
     def start(self):
         """Start listening channel"""
-        self._client.loop_start()
-        logger.info(f"{self} started listening")
+        if self.type_ not in [TopicTypesEnum.DOWN_PUSH]:
+            self._client.loop_start()
+            logger.info(f"{self} started listening")
 
     def stop(self):
         """Stop listening"""
-        self._client.loop_stop()
-        logger.info(f"{self} stopped listening")
+        if self.type_ not in [TopicTypesEnum.DOWN_PUSH]:
+            self._client.loop_stop()
+            logger.info(f"{self} stopped listening")
 
     def publish(self, payload: T):
         """Publish data to the topic"""
