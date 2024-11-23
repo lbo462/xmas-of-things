@@ -1,26 +1,20 @@
-import os
 import time
 import logging
-from dotenv import load_dotenv
-from ttn_access_layer import get_ttn_access_layer, TTNMessage
+from ttn_al import get_ttn_access_layer
+from topics import sensors_topic
+from settings import TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL
+
 
 logging.basicConfig(level=logging.DEBUG)
 
-load_dotenv()
 
-TTN_APP_ID = os.getenv("TTN_APP_ID")
-TTN_API_KEY = os.getenv("TTN_API_KEY")
-TTN_BASE_URL = os.getenv("TTN_BASE_URL")
-TTN_SENSORS_TOPIC = os.getenv("TTN_SENSORS_TOPIC")
-
-
-def on_message(message: TTNMessage):
+def print_message(message):
     print(message)
 
 
 def main():
     with get_ttn_access_layer(
-        TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, TTN_SENSORS_TOPIC, on_message=on_message
+        TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, sensors_topic, on_message=print_message
     ):
         time.sleep(10)
 
