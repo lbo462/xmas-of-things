@@ -1,4 +1,3 @@
-import json
 import logging
 import paho.mqtt.client as mqtt
 from dataclasses import dataclass
