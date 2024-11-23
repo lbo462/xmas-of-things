@@ -1,7 +1,7 @@
 import time
 import logging
 from ttn_al import get_ttn_access_layer
-from topics import sensors_topic
+from topics import sensors_topic, actions_topic, ActionsTTNPayload, actions_queued_topic
 from settings import TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL
 
 
@@ -14,7 +14,12 @@ def print_message(message):
 
 def main():
     with get_ttn_access_layer(
-        TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, sensors_topic, on_message=print_message
+        TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, actions_topic
+    ) as ttn:
+        ttn.publish(ActionsTTNPayload(action="coucou"))
+
+    with get_ttn_access_layer(
+        TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, actions_queued_topic, on_message=print_message
     ):
         time.sleep(10)
 
