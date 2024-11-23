@@ -27,3 +27,30 @@ Send a boolean to trigger the ferris wheel
 - __Music__
 
 Send the music ID
+
+## Technical details
+
+### How to start the script
+
+- Create a [python virtual environment](https://docs.python.org/3/library/venv.html) and install the dependencies with 
+
+```bash
+pip install -r requirements.txt
+```
+
+- Create a `.env` file containing the following:
+
+```
+TTN_APP_ID=<app-name>@ttn
+TTN_API_KEY=<api-key>
+TTN_BASE_URL=eu1.cloud.thethings.network
+TTN_SENSORS_TOPIC=v3/<app-name>@ttn/devices/<device-name>/up
+```
+
+Replace `<app-name>`, `<api-key>` and `<device-name>` with the correct values.
+
+- Start the script
+
+```
+python main.py
+```

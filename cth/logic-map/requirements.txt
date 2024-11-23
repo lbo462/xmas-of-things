@@ -1,0 +1,8 @@
+dataclasses-json==0.6.7
+marshmallow==3.23.1
+mypy-extensions==1.0.0
+packaging==24.2
+paho-mqtt==2.1.0
+python-dotenv==1.0.1
+typing-inspect==0.9.0
+typing_extensions==4.12.2

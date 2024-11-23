@@ -1,6 +1,9 @@
 import os
+import logging
 from dotenv import load_dotenv
 from ttn_access_layer import TTNAccessLayer, TTNMessage
+
+logging.basicConfig(level = logging.INFO)
 
 load_dotenv()
 
@@ -14,11 +17,16 @@ def on_message(message: TTNMessage):
     print(message)
 
 
-ttn = TTNAccessLayer(
-    TTN_APP_ID,
-    TTN_API_KEY,
-    TTN_BASE_URL,
-    TTN_SENSORS_TOPIC,
-    on_message=on_message
-)
-ttn.loop()
+def main():
+    ttn = TTNAccessLayer(
+        TTN_APP_ID,
+        TTN_API_KEY,
+        TTN_BASE_URL,
+        TTN_SENSORS_TOPIC,
+        on_message=on_message
+    )
+    ttn.loop()
+
+
+if __name__ == "__main__":
+    main()
