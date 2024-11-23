@@ -12,7 +12,7 @@ When the brightness level drops, light up the Christmas tree.
 
 - __Snow spray__ (require _temperature_)
 
-When the temperatures drops, trigger the snow spray
+When the temperatures drop, trigger the snow spray
 
 ## Other commands
 
@@ -41,16 +41,25 @@ pip install -r requirements.txt
 - Create a `.env` file containing the following:
 
 ```
-TTN_APP_ID=<app-name>@ttn
+TTN_APP_ID=<app-name>
+TTN_TENANT_ID=ttn
 TTN_API_KEY=<api-key>
 TTN_BASE_URL=eu1.cloud.thethings.network
-TTN_SENSORS_TOPIC=v3/<app-name>@ttn/devices/<device-name>/up
+TTN_PORT=1883
 ```
 
-Replace `<app-name>`, `<api-key>` and `<device-name>` with the correct values.
+Replace `<app-name>` and `<api-key>` with the correct values.
 
 - Start the script
 
-```
+```bash
 python main.py
+```
+
+- ... or start other sample script
+
+```bash
+python read_sensors.py  # read sensors data
+# or
+python read_actions_queue.py  # read actions
 ```
