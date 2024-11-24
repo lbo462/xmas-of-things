@@ -2,6 +2,15 @@
 
 ![](misc/ttn-formatting.png)
 
+To put things simple:
+- Sensors are sending sensors data as bytes on the Uplink topic
+- These are decoded with the Uplink decoder into JSON
+- The logic mapper fetches this sensors data as JSON and sends actions commands as JSON on the downlink topic
+- These are encoded with the Downlink encoder into bytes
+- Engines read the downlink topic to retrieve this frame of action commands.
+
+__Standard are detailed below!__
+
 ## From SEN to TTN
 
 ### Expected frame

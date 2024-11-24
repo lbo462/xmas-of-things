@@ -8,7 +8,7 @@ This script requires:
 - [MKRWAN](https://downloads.arduino.cc/libraries/github.com/arduino-libraries/MKRWAN-1.1.0.zip)
 - [DHT](https://perso.citi.insa-lyon.fr/oiova/docs/arduino-DHT-master.zip)
 
-To respect TTN standards, please check the [TTN documentation](../ttn/README.md).
+To respect TTN standards, please check the [TTN documentation](../TTN/README.md).
 
 ```c++
 #include <MKRWAN.h>

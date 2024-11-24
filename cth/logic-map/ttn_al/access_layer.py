@@ -47,7 +47,7 @@ class TTNAccessLayer:
     ):
         """
         Creates an access layer to TTN
-        :param app_id: Of the form "app_name@ttn"
+        :param app_id: Of the form "app_name@TTN"
         :param api_key: API key for the given TTN app
         :param addr: Base URL for accessing TTN
         :param topic: Channel to which this access layer subscribes
@@ -150,7 +150,7 @@ def get_ttn_access_layer(
 ) -> ContextManager[TTNAccessLayer]:
     """
     Creates an access layer to TTN
-    :param app_id: Of the form "app_name@ttn"
+    :param app_id: Of the form "app_name@TTN"
     :param api_key: API key for the given TTN app
     :param addr: Base URL for accessing TTN
     :param topic: Channel to which this access layer subscribes
