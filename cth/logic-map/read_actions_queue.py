@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def on_action_queued(action: ActionsTTNPayload):
-    print(action)
+    print(action.to_json())
 
 
 def main():

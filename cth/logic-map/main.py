@@ -13,7 +13,7 @@ import time
 import logging
 from typing import List
 from ttn_al import get_ttn_access_layer
-from topics import sensors_topic, actions_topic, ActionsTTNPayload, SensorsTTNPayload
+from topics import sensors_topic, actions_topic, ActionsTTNPayload, SensorsTTNPayload, ActionsEnum
 from settings import TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL
 
 
@@ -29,8 +29,8 @@ def el_famoso_logic_mapper(sensors_data: SensorsTTNPayload) -> List[ActionsTTNPa
     """
 
     if sensors_data.humidity > 50:
-        logger.info("Humidity is above 50% !")
-        return [ActionsTTNPayload(action="Get the humidity down !")]
+        logger.info(f"Humidity is {sensors_data.humidity}%")
+        return [ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED)]
 
     # some other rules here ...
 

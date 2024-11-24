@@ -126,7 +126,7 @@ class TTNAccessLayer:
         sent_payload = PublishScheme(
             downlinks=[
                 PublishSchemeDownlink(
-                    f_port=1, decoded_payload=payload, confirmed=False
+                    f_port=1, decoded_payload=payload.to_json(), confirmed=False
                 )
             ]
         ).to_json()

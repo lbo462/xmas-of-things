@@ -1,7 +1,22 @@
 from dataclasses import dataclass
+from typing import Dict
+from enum import IntEnum
 
 from ttn_al.topics import TTNBasePayload, Topic, TopicTypesEnum
 from settings import TTN_APP_ID, TTN_TENANT_ID
+
+
+class ActionsEnum(IntEnum):
+    """
+    Defines every possible actions in the village.
+    The enum value correspond to the value read by the CTH to activate its things.
+    """
+
+    XMAS_TREE_LED = 0
+    XMAS_TREE_STAR = 1
+    VILLAGE_LED = 2
+    SANTA_TRACK_LED = 3
+    SNOW_SPRAY = 4
 
 
 @dataclass
@@ -16,7 +31,17 @@ class SensorsTTNPayload(TTNBasePayload):
 class ActionsTTNPayload(TTNBasePayload):
     """Actions payload to send to TTN"""
 
-    action: str
+    action: ActionsEnum
+
+    @classmethod
+    def from_dict(cls, d: Dict) -> "ActionsTTNPayload":
+        return cls(action=ActionsEnum(d["action_id"]))
+
+    def to_json(self) -> Dict:
+        return {
+            "action_id": self.action.value,
+            "human_name": self.action.name,
+        }
 
 
 sensors_topic = Topic(
