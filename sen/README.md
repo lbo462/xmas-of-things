@@ -4,15 +4,18 @@ The objective of the sensors team is to read data from multiple sensors and send
 
 Below is a simple script that read the value of temperature and humidity and send both to TTN.
 
-The requirements to run this are [MKRWAN](https://downloads.arduino.cc/libraries/github.com/arduino-libraries/MKRWAN-1.1.0.zip)
-and [DHT](https://perso.citi.insa-lyon.fr/oiova/docs/arduino-DHT-master.zip).
+This script requires:
+- [MKRWAN](https://downloads.arduino.cc/libraries/github.com/arduino-libraries/MKRWAN-1.1.0.zip)
+- [DHT](https://perso.citi.insa-lyon.fr/oiova/docs/arduino-DHT-master.zip)
+
+To respect TTN standards, please check the [TTN documentation](../ttn/README.md).
 
 ```c++
 #include <MKRWAN.h>
 #include <DHT.h>
 
-#define APP_EUI "0000000000000000"
-#define APP_KEY "75690040C8BB2C7E9BFEB8B0D39C3FE2"
+#define APP_EUI "xxxxxxxxxxxxxxxx"
+#define APP_KEY "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 LoRaModem modem;
 DHT my_dht;

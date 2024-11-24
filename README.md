@@ -8,6 +8,8 @@ First technical design is below this one.
 
 ![second-technical-design.png](misc/second-technical-design.png)
 
+Find more detail about network exchanges in the [TTN documentation](ttn/README.md).
+
 ## Initial technical design
 
 ![initial-technical-design.png](misc/initial-techincal-design.png)
@@ -24,7 +26,7 @@ These values are then set on the LoRa network and handled by the TTN team.
 In charge of monitoring the values sent by the sensors, after they were formatted.
 They will create a web interface, _probably using [Grafana](https://grafana.com/) 😉_ to display the data, and send action commands.
 
-They're also in charge of defining standart behind "action command" sent to the engines of the CTH team, probably in accordance with the TTN team.
+They're also in charge of defining standard behind "action command" sent to the engines of the CTH team, probably in accordance with the TTN team.
 
 #### CTH - Center Town Hall team
 

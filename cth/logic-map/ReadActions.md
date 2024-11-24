@@ -2,6 +2,9 @@
 
 With the current state of the logic map, and the TTN decoder, here's a sample code that read downlink topic from TTN and triggers dummy function corresponding to functions:
 
+This script requires:
+- [MKRWAN](https://downloads.arduino.cc/libraries/github.com/arduino-libraries/MKRWAN-1.1.0.zip)
+
 ```c++
 #include <MKRWAN.h>
 
@@ -97,23 +100,10 @@ void triggerAction(int actionId) {
 
 ## Footnotes
 
-Here's basically how it works:
+Here's basically how the big picture works:
 
-- The logic map send a JSON payload to TTN. This payload looks like this:
-```json
-{
-    "action_id": 1,
-    "human_name": "DESCRIPTION"
-}
-```
-
-> The human name is used for human debugging only.
+- The logic map send a JSON payload to TTN.
 - This payload is decoded by TTN into a frame (a byte sequence) currently containing only the `action_id`.
-
-Current frame received:
-```
-+-----------+
-| action_id |
-+-----------+
-```
 - This frame is received by the script above in `rcv`. The first and only byte is then `action_id`.
+
+Find more detail about the TTN processing on the [TTN documentation](../../ttn/README.md).

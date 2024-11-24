@@ -1,22 +1,18 @@
 # TTN Documentation
 
-## JSON formatting
+![](misc/ttn-formatting.png)
 
-The goal is to have standard to define how data should be sent to TTN.
+## From SEN to TTN
 
-This currently needs to be done with the SEN team and reported to the CTH team for the logic mapper.
-
-### Example
-
-__Basic JSON decoder example with two values__
-
-Below is a simpler JSON decoder for data packets constructed as such:
+### Expected frame
 
 ```
 +-----------------------+--------------------+
 | Temperature (4 bytes) | Humidity (4 bytes) |
 +-----------------------+--------------------+
 ```
+
+### Uplink decoder
 
 ```js
 function decodeUplink(input) {
@@ -39,4 +35,45 @@ function decodeUplink(input) {
    }
  };
 }
+```
+
+### Returned uplink payload
+
+```json
+{
+  "humidity": 1,
+  "temperature": 1
+}
+```
+
+## From TTN to CTH (engines)
+
+### Expected downlink payload
+
+```json
+{
+    "action_id": 1,
+    "human_name": "DESCRIPTION"
+}
+```
+
+### Downlink encoder
+
+```js
+function encodeDownlink(input) {
+  return {
+    bytes: [input.data.action_id],
+    fPort: 1,
+    warnings: [],
+    errors: []
+  };
+}
+```
+
+### Output frame
+
+```
++--------------------+
+| action_id (1 byte) |
++--------------------+
 ```
