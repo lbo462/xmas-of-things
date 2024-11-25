@@ -29,21 +29,21 @@ For detail task information and status we made a [Trello](https://trello.com/b/3
 ### Speakers
 - **City Song**
   - Plays a default Christmas tune when Santa arrives.
-  - Optional: Select specific songs or upload custom tracks via the website.
   - Triggers based on actions (e.g., Santa's arrival).
+  - We'll have a set of default songs stored in a SD and we receive the ID of the song to play.
 
 ### Display
 - **City Billboard**
   - Displays messages when Santa arrives or based on custom input from the website.
-  - Supports festive or user-defined text.
+  - The messages will be a set of default messages and we receive the ID of the message to display.
 
 ## Data Requirements
 
 ### Input Data
 - **Billboard Message**
-  - Custom text from the web interface.
+  - ID of the message to be displayed.
 - **Song Selection**
-  - Default, action-specific, or custom songs.
+  - Default, action-specific (with the ID of the song to play).
 - **Control Commands**
   - On/Off states for lights, Christmas tree movement, and ferris wheel.
 
@@ -56,8 +56,4 @@ For detail task information and status we made a [Trello](https://trello.com/b/3
   - Triggers the snow spray engine.
 - **Santa’s Presence**
   - Activates lights, songs, and billboard messages.
-
-## Things we need to buy
-- Screen 
-- Snow spray
-- LEDs
+  
