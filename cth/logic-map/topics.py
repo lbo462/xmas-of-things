@@ -24,6 +24,7 @@ class ActionsEnum(IntEnum):
     SNOW_SPRAY = 4
     
     #### SONGS ####
+    STOP_MUSIC = 10
     PLAY_SONG_1 = 11
     PLAY_SONG_2 = 12
     PLAY_SONG_3 = 13
@@ -33,6 +34,10 @@ class ActionsEnum(IntEnum):
     DISPLAY_NO_MESSAGE = 20
     DISPLAY_MESSAGE_1 = 21
     DISPLAY_MESSAGE_2 = 22
+    
+    #### GRANDE ROUE ####
+    
+    START_WHEEL = 30
     
 @dataclass
 class SensorsTTNPayload(TTNBasePayload):
