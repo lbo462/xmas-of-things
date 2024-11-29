@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Santa's Smart Workshop</title>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <p>Temperature: {{ sensor_data.temperature }} °C</p>
+    <p>Humidity: {{ sensor_data.humidity }} %</p>
+
+    <h2>Send Action Command</h2>
+    <form method="post">
+        <label for="action_id">Action ID:</label>
+        <select name="action_id" id="action_id">
+            <option value="1">XMAS_TREE_LED</option>
+            <option value="2">XMAS_TREE_STAR</option>
+            <option value="3">VILLAGE_LED</option>
+            <option value="4">SANTA_TRACK_LED</option>
+            <option value="5">SNOW_SPRAY</option>
+        </select><br><br>
+
+        <label for="duration">Duration (ms):</label>
+        <input type="number" name="duration" id="duration" value="0"><br><br>
+
+        <input type="submit" value="Send Command">
+    </form>
+</body>
+</html>
