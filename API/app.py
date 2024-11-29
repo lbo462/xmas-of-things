@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from ttn_client import send_downlink
 from settings import TTN_APP_ID, TTN_DEVICE_ID, TTN_API_KEY, TTN_BASE_URL
 import logging
-from ttn_al import get_ttn_access_layer
+from ttn_al.access_layer import get_ttn_access_layer
 from topics import sensors_topic, SensorsTTNPayload
 import threading
 import time
@@ -17,12 +17,22 @@ logger = logging.getLogger(__name__)
 latest_sensor_data = None
 data_lock = threading.Lock()
 
+# Mapping of action IDs to action names
+ACTIONS = {
+    1: "XMAS_TREE_LED",
+    2: "XMAS_TREE_STAR",
+    3: "VILLAGE_LED",
+    4: "SANTA_TRACK_LED",
+    5: "SNOW_SPRAY"
+}
+
 def on_sensors_data(sensors_data: SensorsTTNPayload):
     global latest_sensor_data
     with data_lock:
         latest_sensor_data = {
-            'temperature': sensors_data.temperature,
-            'humidity': sensors_data.humidity
+            'brightness': sensors_data.brightness,
+            'loudness': sensors_data.loudness,
+            'temperature': sensors_data.temperature
         }
     logger.info(f"Received sensor data: {latest_sensor_data}")
 
@@ -45,9 +55,10 @@ ttn_thread.start()
 def index():
     if request.method == 'POST':
         action_id = int(request.form['action_id'])
+        action_name = ACTIONS.get(action_id, "UNKNOWN_ACTION")
         duration = int(request.form.get('duration', 0))
-        parameters = {'duration': duration} if duration > 0 else None
-        send_downlink(action_id, parameters)
+        parameters = {'duration': duration} if duration > 0 else {}
+        send_downlink(action_id, action_name, parameters)
         return redirect('/')
     # Retrieve sensor data
     sensor_data = get_sensor_data()
@@ -59,8 +70,9 @@ def get_sensor_data():
             return latest_sensor_data
         else:
             return {
-                'temperature': 'N/A',
-                'humidity': 'N/A'
+                'brightness': 'N/A',
+                'loudness': 'N/A',
+                'temperature': 'N/A'
             }
 
 if __name__ == '__main__':

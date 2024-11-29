@@ -5,8 +5,9 @@
 </head>
 <body>
     <h1>Sensor Data</h1>
+    <p>Brightness: {{ sensor_data.brightness }}</p>
+    <p>Loudness: {{ sensor_data.loudness }}</p>
     <p>Temperature: {{ sensor_data.temperature }} °C</p>
-    <p>Humidity: {{ sensor_data.humidity }} %</p>
 
     <h2>Send Action Command</h2>
     <form method="post">
