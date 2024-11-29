@@ -27,13 +27,33 @@ def el_famoso_logic_mapper(sensors_data: SensorsTTNPayload) -> List[ActionsTTNPa
     El famoso logic mapper implementation.
     Takes data from the sensors as inputs and returns one or multiple actions.
     """
-
-    if sensors_data.humidity > 50:
-        logger.info(f"Humidity is {sensors_data.humidity}%")
-        return [ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED)]
+    ######    GOOD EXAMPLE     #####
+    actions=[]
+    #if sensors_data.humidity > 50:
+    #    logger.info(f"Humidity is {sensors_data.humidity}%")
+    #    return [ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED)]
 
     # some other rules here ...
-
+    print("editing actions list")
+    if sensors_data.brightness < 100:
+        logger.info(f"Brightess is {sensors_data.brightness} lumens.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
+        actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
+    
+    if sensors_data.loudness > 10:
+        logger.info(f"Loudness is {sensors_data.loudness} dB.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED))
+    
+    if sensors_data.temperature < 100:
+        logger.info(f"Temperature is {sensors_data.temperature} C.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.SNOW_SPRAY))
+        
+    #if sensors_data.movement < 100:
+    #    logger.info(f"Santa is near !")
+    #    actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
+    
+    return actions
+    
 
 def on_sensors_data(sensors_data: SensorsTTNPayload):
     actions = el_famoso_logic_mapper(sensors_data)
