@@ -69,16 +69,37 @@ def el_famoso_logic_mapper(sensors_data: SensorsTTNPayload) -> List[ActionsTTNPa
         logger.info(f"Brightess is {sensors_data.brightness} lumens.")
         actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
         actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
+        XMAS_TREE_STAR = True
+        XMAS_TREE_LED = True
+        
+    
+    if (sensors_data.brightness > 100 and XMAS_TREE_STAR == True) : ##don't forget -- potentially add santa's proximity as condition
+        logger.info(f"Brightess is {sensors_data.brightness} lumens.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
+        actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
+        XMAS_TREE_STAR = False
+        XMAS_TREE_LED = False
     
     if (sensors_data.loudness > 10 and VILLAGE_LED == False):
         logger.info(f"Loudness is {sensors_data.loudness} dB.")
         actions.append(ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED))
+        VILLAGE_LED = True
+        
+    if (sensors_data.loudness < 10 and VILLAGE_LED == True):
+        logger.info(f"Loudness is {sensors_data.loudness} dB.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED))
+        VILLAGE_LED = False
     
-    if sensors_data.temperature < 100:
+    
+    if (sensors_data.temperature < 30 and SNOW_SPRAY == False):
         logger.info(f"Temperature is {sensors_data.temperature} C.")
         actions.append(ActionsTTNPayload(action=ActionsEnum.SNOW_SPRAY))
+        SNOW_SPRAY = True
     
-    
+    if (sensors_data.temperature > 30 and SNOW_SPRAY == True):
+        logger.info(f"Temperature is {sensors_data.temperature} C.")
+        actions.append(ActionsTTNPayload(action=ActionsEnum.SNOW_SPRAY))
+        SNOW_SPRAY = False
     #if sensors_data.movement < 100:
     #    logger.info(f"Santa is near !")
     #    actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
