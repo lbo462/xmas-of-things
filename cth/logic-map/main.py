@@ -64,7 +64,7 @@ def el_famoso_logic_mapper(sensors_data: SensorsTTNPayload) -> List[ActionsTTNPa
     #    return [ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED)]
 
     # some other rules here ...
-    print("editing actions list")
+    
     if (sensors_data.brightness < 100 and XMAS_TREE_STAR == False) : ##don't forget -- potentially add santa's proximity as condition
         logger.info(f"Brightess is {sensors_data.brightness} lumens.")
         actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
