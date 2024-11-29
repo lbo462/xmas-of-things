@@ -1,0 +1,268 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="24.8.9">
+  <diagram name="Page-1" id="1iwVxutnvDwoOHhmz1F1">
+    <mxGraphModel dx="1365" dy="845" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="O7pynaAjtmBe_c97-657-56" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="27" y="20" width="1353" height="770" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-40" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+          <mxGeometry x="310" y="213" width="270" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-39" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" parent="1" vertex="1">
+          <mxGeometry x="570" y="413" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-38" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d6b656;fillColor=#fff2cc;" parent="1" vertex="1">
+          <mxGeometry x="280" y="413" width="290" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-37" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;" parent="1" vertex="1">
+          <mxGeometry x="85" y="473" width="195" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-1" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="260" y="403" width="320" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-4" value="&lt;div&gt;&lt;b&gt;Sensors&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="92" y="498" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-5" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="O7pynaAjtmBe_c97-657-28" edge="1" target="O7pynaAjtmBe_c97-657-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="230" y="513" as="sourcePoint" />
+            <mxPoint x="280" y="513" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-6" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.calloutDouble90Arrow;dy1=4.5;dx1=20;dx2=52;dy2=53;arrowHead=7;" parent="1" vertex="1">
+          <mxGeometry x="367" y="476" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-7" value="Data&lt;br&gt;format" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="362" y="483" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-9" value="&lt;b&gt;LoRa Network - TTN&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="283" y="575" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-10" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=20;" parent="1" vertex="1">
+          <mxGeometry x="657" y="463" width="60" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-11" value="Monitor server" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="677" y="563" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-12" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=-0.033;entryY=0.64;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#60a917;strokeColor=#2D7600;exitX=0;exitY=0;exitDx=52;exitDy=53;exitPerimeter=0;" parent="1" target="GaP0o0gFWO2JClPfEH_W-10" edge="1" source="GaP0o0gFWO2JClPfEH_W-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="527" as="sourcePoint" />
+            <mxPoint x="590" y="563" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-13" value="&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;Formatted&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;sensors&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;data&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="545" y="509" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-14" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;exitX=0.029;exitY=0.163;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" target="O7pynaAjtmBe_c97-657-13" source="GaP0o0gFWO2JClPfEH_W-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="483" as="sourcePoint" />
+            <mxPoint x="558.02" y="483" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-16" value="&lt;div&gt;&lt;b&gt;Engines&lt;/b&gt;&lt;/div&gt;&lt;div&gt;(LED, servos, speakers, ...)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="288" y="230" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-19" value="&lt;div&gt;&lt;span style=&quot;background-color: rgb(185, 224, 165);&quot;&gt;Raw sensors&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(185, 224, 165);&quot;&gt;data&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="202" y="525" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-21" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" edge="1" source="O7pynaAjtmBe_c97-657-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="503" y="325" as="sourcePoint" />
+            <mxPoint x="498" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-22" value="&lt;div&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;Actions&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;commands&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="457" y="371" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-23" value="Web interface" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="697" y="483" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-25" value="" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="505" y="561" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-26" value="TTN" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="500" y="591" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-28" value="Sensors" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="70" y="593" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-29" value="" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="750" y="383" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-30" value="API" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="750" y="413" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-31" value="" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="493" y="153" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-32" value="CTH" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="487" y="183" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-33" value="Center Town Hall" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="452" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-27" value="" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="85" y="538" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GaP0o0gFWO2JClPfEH_W-41" value="SEN" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="80" y="569" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-1" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="316" width="66" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-3" value="Logic mapper" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="338" y="373" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-4" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#60a917;strokeColor=#2D7600;entryX=0.035;entryY=0.762;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="O7pynaAjtmBe_c97-657-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="473" as="sourcePoint" />
+            <mxPoint x="605.3000000000002" y="273.00000000000006" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-6" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;entryX=0.133;entryY=-0.054;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="O7pynaAjtmBe_c97-657-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="392.3546099290779" y="403" as="sourcePoint" />
+            <mxPoint x="455" y="493.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-9" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/iconoir-vol-3/24/planet-alt-128.png" vertex="1" parent="1">
+          <mxGeometry x="683" y="512" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-10" value="One sensor channel per sensor Arduino" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="292" y="482" width="80" height="43" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-13" value="Single actions channel" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="455" y="483" width="80" height="43" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-17" value="&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;Actions&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;commands&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;i&gt;manually&amp;nbsp;&lt;/i&gt;&lt;/font&gt;&lt;i style=&quot;font-size: 10px;&quot;&gt;triggered&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="565" y="443" width="83" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-18" value="&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;Actions&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;commands&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;background-color: rgb(234, 107, 102);&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;i&gt;automatically&amp;nbsp;&lt;/i&gt;&lt;/font&gt;&lt;i style=&quot;font-size: 10px;&quot;&gt;triggered&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="384" y="406" width="83" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-19" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/electronic-13/480/3-electronic-arduino-chipset-icon-2-128.png" vertex="1" parent="1">
+          <mxGeometry x="398" y="230" width="51" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-20" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/electronic-13/480/3-electronic-arduino-chipset-icon-2-128.png" vertex="1" parent="1">
+          <mxGeometry x="452" y="230" width="51" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-21" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/electronic-13/480/3-electronic-arduino-chipset-icon-2-128.png" vertex="1" parent="1">
+          <mxGeometry x="510" y="230" width="51" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-22" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="O7pynaAjtmBe_c97-657-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="489" y="340" as="sourcePoint" />
+            <mxPoint x="659" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-23" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="O7pynaAjtmBe_c97-657-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499" y="330" as="sourcePoint" />
+            <mxPoint x="429" y="291" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-24" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;" edge="1" parent="1" target="O7pynaAjtmBe_c97-657-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="509" y="340" as="sourcePoint" />
+            <mxPoint x="487" y="291" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-28" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/electronic-13/480/3-electronic-arduino-chipset-icon-2-128.png" vertex="1" parent="1">
+          <mxGeometry x="160" y="487.5" width="51" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-29" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/ionicons-fill-vol-2/512/logo-python-128.png" vertex="1" parent="1">
+          <mxGeometry x="340" y="333" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-34" value="&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;Formatted&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;sensors&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: rgb(151, 208, 119);&quot;&gt;data&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="306" y="413" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-36" value="&lt;h1&gt;&lt;font style=&quot;font-size: 21px;&quot;&gt;1&lt;/font&gt;&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="232" y="476" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-37" value="&lt;h1&gt;&lt;font style=&quot;font-size: 21px;&quot;&gt;2&lt;/font&gt;&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="362" y="523" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-38" value="&lt;h1&gt;&lt;font style=&quot;font-size: 21px;&quot;&gt;3&lt;/font&gt;&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="317" y="363" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-39" value="&lt;h1&gt;&lt;font style=&quot;font-size: 21px;&quot;&gt;4&lt;/font&gt;&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="457" y="413" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-40" value="&lt;h1&gt;&lt;font style=&quot;font-size: 21px;&quot;&gt;5&lt;/font&gt;&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="462.5" y="240.5" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-41" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="854.5" y="116.19" width="66" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-42" value="Logic mapper" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="854.5" y="86.19" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-43" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/ionicons-fill-vol-2/512/logo-python-128.png" vertex="1" parent="1">
+          <mxGeometry x="874.5" y="133.19" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-44" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;Transforms sensors data into commands&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Reads formatted sensors data from TTN&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Deduces the actions to be done&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Send theses actions on the action channel of TTN&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="936.5" y="108.94" width="290" height="87.5" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-45" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/electronic-13/480/3-electronic-arduino-chipset-icon-2-128.png" vertex="1" parent="1">
+          <mxGeometry x="874.5" y="482.81" width="51" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-46" value="&lt;b&gt;Arduino card&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="939.5" y="493.31" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-47" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=20;" vertex="1" parent="1">
+          <mxGeometry x="854.5" y="240.31" width="60" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-48" value="Monitor server" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="854.5" y="210.31" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-49" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/iconoir-vol-3/24/planet-alt-128.png" vertex="1" parent="1">
+          <mxGeometry x="880.5" y="278.31" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-50" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;Data display and human actions&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Reads formatted sensors data from TTN&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Displays these data via a web interface&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;- Allows a user to trigger actions not commanded by the logic mapper&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="936.5" y="241.81" width="380" height="87.5" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-51" value="Web interface" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1085.5" y="292.31" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-52" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="392.31" width="84" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-54" value="LoRa Network" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="854.5" y="369.31" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-55" value="&lt;div style=&quot;&quot;&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;Data networking&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Web service&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;hosted by TTN, connected with LoRa&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Allows to send the sensors data or commands&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Data can be read by every authorized entity&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="940" y="393.81" width="380" height="87.5" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-58" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="874.5" y="570" as="sourcePoint" />
+            <mxPoint x="932.17" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-59" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#60a917;strokeColor=#2D7600;exitX=0;exitY=0;exitDx=52;exitDy=53;exitPerimeter=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="874.5" y="644" as="sourcePoint" />
+            <mxPoint x="934.5" y="644" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-60" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="874.5" y="710" as="sourcePoint" />
+            <mxPoint x="934.5" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-61" value="&lt;div style=&quot;&quot;&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;Actions command&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Attached to a single channel&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Carries the data required by the engines to trigger a physical action&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="940" y="539" width="380" height="62.31" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-62" value="&lt;div style=&quot;&quot;&gt;&lt;b&gt;Raw sensor data&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Sent to a TTN channel and directly processed by a JSON formatter&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Contains the initial data read from a sensor&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="940" y="685" width="380" height="62.31" as="geometry" />
+        </mxCell>
+        <mxCell id="O7pynaAjtmBe_c97-657-63" value="&lt;div style=&quot;&quot;&gt;&lt;b&gt;Formatted sensor data&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Result of the format of the raw sensors data by the JSON formatter in TTN&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="936.5" y="611" width="403.5" height="62.31" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

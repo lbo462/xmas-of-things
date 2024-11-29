@@ -2,6 +2,20 @@
 
 I think we should write a clear project description here.
 
+## Updated technical design
+
+First technical design is below this one.
+
+![second-technical-design.png](misc/second-technical-design.png)
+
+Find more detail about network exchanges in the [TTN documentation](TTN/README.md).
+
+To put things simple:
+- SEN uses Arduino to read sensors data and send it to TTN. Check [SEN documentation](SEN/README.md)
+- TTN format sensors data for the logic map. Check [TTN documentation](TTN/README.md) and [Logic map](CTH/logic-map).
+- The logic map outputs actions and them to TTN. Check again [TTN documentation](TTN/README.md).
+- CTH read these actions command and triggers actual actions. Check [how to read actions command with Arduino](CTH/ReadActionsOnArduino.md). 
+
 ## Initial technical design
 
 ![initial-technical-design.png](misc/initial-techincal-design.png)
@@ -18,7 +32,7 @@ These values are then set on the LoRa network and handled by the TTN team.
 In charge of monitoring the values sent by the sensors, after they were formatted.
 They will create a web interface, _probably using [Grafana](https://grafana.com/) 😉_ to display the data, and send action commands.
 
-They're also in charge of defining standart behind "action command" sent to the engines of the CTH team, probably in accordance with the TTN team.
+They're also in charge of defining standard behind "action command" sent to the engines of the CTH team, probably in accordance with the TTN team.
 
 #### CTH - Center Town Hall team
 
