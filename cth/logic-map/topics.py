@@ -13,40 +13,41 @@ class ActionsEnum(IntEnum):
     """
 
     #### LEDS ####
-    
+
     XMAS_TREE_LED = 0
     XMAS_TREE_STAR = 1
     VILLAGE_LED = 2
     SANTA_TRACK_LED = 3
-    
+
     #### SPRAY ####
-    
+
     SNOW_SPRAY = 4
-    
+
     #### SONGS ####
     STOP_MUSIC = 10
     PLAY_SONG_1 = 11
     PLAY_SONG_2 = 12
     PLAY_SONG_3 = 13
-    
+
     #### MESSAGES ####
-    
+
     DISPLAY_NO_MESSAGE = 20
     DISPLAY_MESSAGE_1 = 21
     DISPLAY_MESSAGE_2 = 22
-    
+
     #### GRANDE ROUE ####
-    
+
     START_WHEEL = 30
-    
+
+
 @dataclass
 class SensorsTTNPayload(TTNBasePayload):
     """Decoded payload for receiving sensors data"""
 
-
     temperature: int
     brightness: int
     loudness: int
+
 
 @dataclass
 class ActionsTTNPayload(TTNBasePayload):
@@ -65,7 +66,7 @@ class ActionsTTNPayload(TTNBasePayload):
         }
 
 
-sensors_topic = Topic( #sensors
+sensors_topic = Topic(  # sensors
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
     device_id="testarduino",
@@ -73,7 +74,7 @@ sensors_topic = Topic( #sensors
     payload_model=SensorsTTNPayload,
 )
 
-actions_topic = Topic( #actionners
+actions_topic = Topic(  # actionners
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
     device_id="cth-device",
@@ -81,7 +82,7 @@ actions_topic = Topic( #actionners
     payload_model=ActionsTTNPayload,
 )
 
-actions_queued_topic = Topic( #monitoring
+actions_queued_topic = Topic(  # monitoring
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
     device_id="cth-device",
