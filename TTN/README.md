@@ -16,9 +16,9 @@ __Standard are detailed below!__
 ### Expected frame
 
 ```
-+-----------------------+--------------------+
-| Temperature (4 bytes) | Humidity (4 bytes) |
-+-----------------------+--------------------+
++-----------------------+----------------------+--------------------+
+| Temperature (4 bytes) | Brightness (4 bytes) | Loudness (4 bytes) |
++-----------------------+----------------------+--------------------+
 ```
 
 ### Uplink decoder
@@ -31,16 +31,23 @@ function decodeUplink(input) {
  (input.bytes[1] << 8) |
  (input.bytes[0]);
  
- let humidity =
+ let brightness =
  (input.bytes[7] << 24) |
  (input.bytes[6] << 16) |
  (input.bytes[5] << 8) |
  (input.bytes[4]);
  
+ let loudness =
+ (input.bytes[11] << 24) |
+ (input.bytes[10] << 16) |
+ (input.bytes[9] << 8) |
+ (input.bytes[8]);
+ 
  return {
    data : {
-     humidity: humidity,
-     temperature: temperature
+     temperature: temperature,
+     brightness: brightness,
+     loudness: loudness
    }
  };
 }
@@ -51,7 +58,8 @@ function decodeUplink(input) {
 ```json
 {
   "humidity": 1,
-  "temperature": 1
+  "brightness": 1,
+  "loudness": 1
 }
 ```
 
