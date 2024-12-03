@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from .state import VillageState
 from .topics import Topic, SensorsTTNPayload, ActionsTTNPayload, ActionsEnum
 from .ttn_al import get_ttn_access_layer
+from .ttn_al.access_layer import TTNAccessLayer
 
 
 @dataclass
@@ -40,11 +41,26 @@ class LogicMap:
 
         self._logger = logging.getLogger(__name__)
         self._sensors_history: List[SensorHistoryEntry] = []
+        self._ttn_al_sensors = TTNAccessLayer(
+            app_id=self._ttn_app_id,
+            api_key=self._ttn_api_key,
+            addr=self._ttn_base_url,
+            port=self._ttn_port,
+            topic=self._sensor_topic,
+            on_message=self._on_sensors_data,
+        )
 
     @property
     def sensors_history(self) -> List[SensorHistoryEntry]:
         """History of every sensor data received, timestamped"""
         return self._sensors_history
+
+    @property
+    def last_sensors_data(self) -> SensorHistoryEntry | None:
+        """Get the last data received from the sensors, if any data was received"""
+        if len(self.sensors_history) > 0:
+            return self.sensors_history[-1]
+        return None
 
     def _map(self, sensors_data: SensorsTTNPayload) -> List[ActionsTTNPayload]:
         actions = []
@@ -90,6 +106,7 @@ class LogicMap:
         return actions
 
     def _on_sensors_data(self, sensors_data: SensorsTTNPayload):
+        self._logger.info(f"Received {sensors_data}")
         self._sensors_history.append(
             SensorHistoryEntry(data=sensors_data, datetime_=datetime.now(UTC))
         )
@@ -108,13 +125,8 @@ class LogicMap:
             for action in actions:
                 ttn.publish(action)
 
-    def start(self, duration: int):
-        with get_ttn_access_layer(
-            self._ttn_app_id,
-            self._ttn_api_key,
-            self._ttn_base_url,
-            port=self._ttn_port,
-            topic=self._sensor_topic,
-            on_message=self._on_sensors_data,
-        ):
-            time.sleep(duration)
+    def start(self):
+        self._ttn_al_sensors.start()
+
+    def stop(self):
+        self._ttn_al_sensors.stop()

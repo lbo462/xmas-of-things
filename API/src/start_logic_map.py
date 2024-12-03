@@ -1,9 +1,12 @@
 import logging
+from time import sleep
 
 from pyxmas import VillageState, LogicMap, sensors_topic, actions_topic
 from pyxmas.settings import TTN_APP_ID, TTN_API_KEY, TTN_PORT, TTN_BASE_URL
 
 logging.basicConfig(level=logging.INFO)
+
+DURATION = 30
 
 
 def main():
@@ -19,13 +22,16 @@ def main():
         village_state=village_state,
     )
 
-    logic_map.start(10)  # Listen for 300 seconds
+    logic_map.start()
 
-    for entry in logic_map.sensors_history: # Yay, history of sensors!
-        t = entry.datetime_
-        data = entry.data
+    for i in range(0, DURATION):
+        # print(f"Last data: {logic_map.last_sensors_data}")  # Constantly print last data received
+        sleep(1)
 
-        print(f"At {t} we had {data}")
+    logic_map.stop()
+
+    for e in logic_map.sensors_history:  # Yay, sensors history!
+        print(e)
 
 
 if __name__ == "__main__":
