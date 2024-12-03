@@ -14,7 +14,7 @@ To put things simple:
 - SEN uses Arduino to read sensors data and send it to TTN. Check [SEN documentation](SEN/README.md)
 - TTN format sensors data for the logic map. Check [TTN documentation](TTN/README.md) and [Logic map](CTH/logic-map).
 - The logic map outputs actions and them to TTN. Check again [TTN documentation](TTN/README.md).
-- CTH read these actions command and triggers actual actions. Check [how to read actions command with Arduino](CTH/ReadActionsOnArduino.md). 
+- CTH read these actions command and triggers actual actions. Check [how to read actions command with Arduino](ReadActionsOnArduino.md). 
 
 ## Initial technical design
 

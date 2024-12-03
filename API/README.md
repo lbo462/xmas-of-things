@@ -1,3 +1,4 @@
 # API Documentation
 
-Nothing to see here yet
+API team is in charge of starting the logic-map.
+Check the [doc](../LogicMap.md) for more details.
