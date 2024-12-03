@@ -106,4 +106,4 @@ Here's basically how the big picture works:
 - This payload is decoded by TTN into a frame (a byte sequence) currently containing only the `action_id`.
 - This frame is received by the script above in `rcv`. The first and only byte is then `action_id`.
 
-Find more detail about the TTN processing on the [TTN documentation](../TTN/README.md).
+Find more detail about the TTN processing on the [TTN documentation](TTN/README.md).

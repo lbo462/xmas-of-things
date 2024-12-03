@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from typing import Dict
 from enum import IntEnum
 
-from ttn_al.topics import TTNBasePayload, Topic, TopicTypesEnum
-from settings import TTN_APP_ID, TTN_TENANT_ID
+from .ttn_al.topics import TTNBasePayload, Topic, TopicTypesEnum
+from .settings import TTN_APP_ID, TTN_TENANT_ID
 
 
 class ActionsEnum(IntEnum):
