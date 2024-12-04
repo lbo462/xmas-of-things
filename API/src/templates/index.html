@@ -1,0 +1,100 @@
+<!-- API/src/templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xmas of Things Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .sensor-data {
+            margin-bottom: 30px;
+        }
+        .action-form {
+            margin-bottom: 30px;
+        }
+        .status-message {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Xmas of Things Dashboard</h1>
+
+        {% if status_message and status_type %}
+            <div class="alert alert-{{ status_type }} alert-dismissible fade show status-message" role="alert">
+                {{ status_message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+
+        <div class="sensor-data">
+            <h3>Sensor Data</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens</li>
+                <li class="list-group-item"><strong>Loudness:</strong> <span id="loudness">N/A</span> dB</li>
+                <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span> °C</li>
+                <li class="list-group-item"><strong>Last Updated:</strong> <span id="timestamp">N/A</span></li>
+            </ul>
+        </div>
+
+        <div class="action-form">
+            <h3>Send Action Command</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="action_id">Select Action:</label>
+                    <select class="form-control" id="action_id" name="action_id" required>
+                        <option value="" disabled selected>Choose an action</option>
+                        {% for id, name in actions.items() %}
+                            <option value="{{ id }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Action</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- jQuery for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Function to fetch sensor data
+        function fetchSensorData() {
+            $.ajax({
+                url: '/sensor_data',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#brightness').text(data.brightness);
+                    $('#loudness').text(data.loudness);
+                    $('#temperature').text(data.temperature);
+                    $('#timestamp').text(data.timestamp);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching sensor data:', error);
+                }
+            });
+        }
+
+        // Fetch sensor data every 5 seconds
+        setInterval(fetchSensorData, 5000);
+
+        // Initial fetch when the page loads
+        $(document).ready(function() {
+            fetchSensorData();
+        });
+    </script>
+</body>
+</html>
