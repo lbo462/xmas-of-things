@@ -1,75 +1,59 @@
 # API/src/app.py
 
-import sys
 import os
 import threading
-import time
 import logging
 from flask import Flask, render_template, request, jsonify
-from pyxmas import (
-    get_ttn_access_layer,
-    SensorsTTNPayload,
-    ActionsTTNPayload,
-    ActionsEnum,
-    sensors_topic,
-    actions_topic,
-)
+from pyxmas.logic_map import LogicMap
 from pyxmas.settings import TTN_APP_ID, TTN_API_KEY, TTN_BASE_URL, TTN_PORT
+from pyxmas.topics import sensors_topic, actions_topic, ActionsEnum, ActionsTTNPayload
+from pyxmas.ttn_al.access_layer import TTNAccessLayer  # Import TTNAccessLayer directly
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 
-# Ensure pyxmas is in the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'pyxmas')))
+# Load environment variables from .env file
+load_dotenv()
+
+
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure key in production
+
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s',
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
-# Global variable to store the latest sensor data
-latest_sensor_data = {
-    'brightness': 'N/A',
-    'loudness': 'N/A',
-    'temperature': 'N/A',
-    'timestamp': 'N/A'
-}
-data_lock = threading.Lock()
+# Initialize VillageState
+from pyxmas.state import VillageState
+village_state = VillageState()
 
-def on_sensors_data(sensors_data: SensorsTTNPayload):
-    global latest_sensor_data
-    with data_lock:
-        latest_sensor_data = {
-            'brightness': sensors_data.brightness,
-            'loudness': sensors_data.loudness,
-            'temperature': sensors_data.temperature,
-            'timestamp': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-        }
-    logger.info(f"Received sensor data: {latest_sensor_data}")
+# Initialize LogicMap without ttn_tenant_id
+logic_map = LogicMap(
+    ttn_app_id=TTN_APP_ID,
+    ttn_api_key=TTN_API_KEY,
+    ttn_base_url=TTN_BASE_URL,
+    ttn_port=TTN_PORT,
+    sensor_topic=sensors_topic,
+    action_topic=actions_topic,
+    village_state=village_state,
+)
 
-def start_ttn_listener():
-    try:
-        with get_ttn_access_layer(
-            app_id=TTN_APP_ID,
-            api_key=TTN_API_KEY,
-            addr=TTN_BASE_URL,
-            port=TTN_PORT,
-            topic=sensors_topic,
-            on_message=on_sensors_data,
-        ) as ttn:
-            logger.info("TTN listener started and listening for sensor data...")
-            while True:
-                time.sleep(1)
-    except Exception as e:
-        logger.error(f"TTN listener encountered an error: {e}")
+def start_logic_map():
+    logic_map.start()
+    logger.info("LogicMap started.")
 
-# Start the TTN listener in a separate daemon thread
-ttn_thread = threading.Thread(target=start_ttn_listener)
-ttn_thread.daemon = True
-ttn_thread.start()
-
-# Import send_downlink after setting up the listener to avoid circular imports
-from ttn_client import send_downlink
+# Start LogicMap in a separate daemon thread
+logic_thread = threading.Thread(target=start_logic_map)
+logic_thread.daemon = True
+logic_thread.start()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -90,43 +74,78 @@ def index():
             status_type = "danger"
             logger.error(f"Action ID validation error: {e}")
             # Proceed to render the page with the error message
-            sensor_data = get_latest_sensor_data()
+            sensor_data = logic_map.last_sensors_data
             actions = get_available_actions()
-            return render_template('index.html', sensor_data=sensor_data, actions=actions, status_message=status_message, status_type=status_type)
+            return render_template(
+                'index.html',
+                sensor_data=sensor_data,
+                actions=actions,
+                status_message=status_message,
+                status_type=status_type
+            )
 
         # Create the action payload without duration
         action_payload = ActionsTTNPayload(action=action_enum)
 
-        # Send the downlink using ttn_client.py
+        # Send the downlink using TTNAccessLayer from ttn_al
         try:
-            send_downlink(action_payload)
+            # Initialize TTNAccessLayer for downlink
+            ttn_downlink = TTNAccessLayer(
+                app_id=TTN_APP_ID,
+                api_key=TTN_API_KEY,
+                addr=TTN_BASE_URL,
+                topic=actions_topic,
+                on_message=None,  # No callback needed for downlinks
+                port=TTN_PORT,
+            )
+            ttn_downlink.start()
+            ttn_downlink.publish(action_payload)
+            ttn_downlink.stop()
+
             status_message = f"Action '{action_enum.name}' sent successfully!"
             status_type = "success"
+            logger.info(f"Sent action: {action_payload.to_json()}")
         except Exception as e:
             status_message = f"Failed to send action: {e}"
             status_type = "danger"
             logger.error(f"Failed to send action: {e}")
 
-    # Retrieve the latest sensor data
-    sensor_data = get_latest_sensor_data()
+    # Retrieve the latest sensor data from LogicMap
+    sensor_data = logic_map.last_sensors_data
 
     # Prepare actions for the dropdown
     actions = get_available_actions()
 
-    return render_template('index.html', sensor_data=sensor_data, actions=actions, status_message=status_message, status_type=status_type)
+    return render_template(
+        'index.html',
+        sensor_data=sensor_data,
+        actions=actions,
+        status_message=status_message,
+        status_type=status_type
+    )
 
 @app.route('/sensor_data', methods=['GET'])
-def sensor_data():
+def sensor_data_route():
     """Endpoint to return the latest sensor data as JSON."""
-    sensor_data = get_latest_sensor_data()
-    return jsonify(sensor_data)
-
-def get_latest_sensor_data():
-    with data_lock:
-        return latest_sensor_data.copy()
+    sensor_data_entry = logic_map.last_sensors_data
+    if sensor_data_entry:
+        data = {
+            "temperature": sensor_data_entry.data.temperature,
+            "brightness": sensor_data_entry.data.brightness,
+            "loudness": sensor_data_entry.data.loudness,
+            "timestamp": sensor_data_entry.datetime_.strftime('%Y-%m-%d %H:%M:%S UTC')
+        }
+    else:
+        data = {
+            "temperature": "N/A",
+            "brightness": "N/A",
+            "loudness": "N/A",
+            "timestamp": "N/A"
+        }
+    return jsonify(data)
 
 def get_available_actions():
-    return {action.value: action.name for action in ActionsEnum}
+    return {action.value: action.name.replace('_', ' ').title() for action in ActionsEnum}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
