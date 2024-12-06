@@ -5,7 +5,14 @@ from bokeh.plotting import figure
 from bokeh.resources import INLINE
 from bokeh.models.sources import AjaxDataSource
 
-from pyxmas import VillageState, LogicMap, sensors_topic, actions_topic, ActionsEnum, ActionsTTNPayload
+from pyxmas import (
+    VillageState,
+    LogicMap,
+    sensors_topic,
+    actions_topic,
+    ActionsEnum,
+    ActionsTTNPayload,
+)
 from pyxmas.settings import TTN_APP_ID, TTN_API_KEY, TTN_PORT, TTN_BASE_URL
 
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +35,7 @@ logic_map = LogicMap(
 )
 
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=["GET"])
 def index():
     js_resources = INLINE.render_js()
     css_resources = INLINE.render_css()
@@ -84,20 +91,32 @@ def update_loudness():
     return jsonify(x=datetimes, y=loudness_data)
 
 
-@app.route("/last_sensors_entry", methods=['GET'])
+@app.route("/last_sensors_entry", methods=["GET"])
 def latest_sensors_entry():
     return jsonify(logic_map.last_sensors_data)
 
 
-@app.route("/village_state", methods=['GET'])
+@app.route("/village_state", methods=["GET"])
 def get_village_state():
     return jsonify(village_state)
 
 
-@app.route("/perform_action/<action_id>", methods=['POST'])
+@app.route("/perform_action/<action_id>", methods=["POST"])
 def perform_action(action_id: int):
     logic_map.publish_actions([ActionsTTNPayload(ActionsEnum(int(action_id)))])
     return "", 204  # No content
+
+
+# New route to toggle publishing actions
+@app.route("/toggle_publish", methods=["POST"])
+def toggle_publish():
+    logic_map._publish_enabled = not logic_map._publish_enabled
+    return {"publish_enabled": logic_map._publish_enabled}, 200
+
+
+@app.route("/publish_status", methods=["GET"])
+def publish_status():
+    return {"publish_enabled": logic_map._publish_enabled}, 200
 
 
 def main():

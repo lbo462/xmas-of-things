@@ -1,5 +1,3 @@
-<!-- API/src/templates/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +20,9 @@
 
         .action-form {
             margin-bottom: 30px;
+        }
+        .status-message {
+            margin-bottom: 20px;
         }
     </style>
     {{ js_resources|indent(4)|safe }}
@@ -58,6 +59,12 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Send Action</button>
                 </form>
+
+            <!-- New section to display publish status and toggle button -->
+            <div class="mt-3">
+                <p>Logic Map Publish is currently: <span id="publish_indicator">Unknown</span></p>
+                <button type="button" class="btn btn-secondary" onclick="togglePublish()">Toggle Logic Publish</button>
+            </div>
             </div>
         </div>
 
@@ -74,20 +81,47 @@
         </div>
     </div>
 
+    <!-- jQuery for AJAX -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+        function performAction() {
+            $.ajax({
+                url: `/perform_action/${$('#action_id :selected').val()}`,
+                type: 'POST',
+                success: function() {
+                    console.log("Sent action!");
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error performing the action:', error);
+                }
+            });
+        }
+
+        function togglePublish() {
+            fetch('/toggle_publish', {method: 'POST'})
+            .then(response => response.json())
+            .then(data => {
+                console.log("Publish toggled. Now:", data.publish_enabled);
+                updatePublishIndicator(data.publish_enabled);
+            })
+            .catch(err => console.error("Error toggling publish:", err));
+        }
+
         function fetchSensorData() {
             $.ajax({
                 url: '/last_sensors_entry',
                 type: 'GET',
                 dataType: 'json',
-                success: function (data) {
-                    $('#brightness').text(data.data.brightness);
-                    $('#loudness').text(data.data.loudness);
-                    $('#temperature').text(data.data.temperature);
-                    $('#last_update').text(data.datetime_);
+                success: function(data) {
+                    if (data && data.data && data.datetime_) {
+                        $('#brightness').text(data.data.brightness);
+                        $('#loudness').text(data.data.loudness);
+                        $('#temperature').text(data.data.temperature);
+                        $('#last_update').text(data.datetime_);
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error('Error fetching sensor data:', error);
@@ -100,8 +134,8 @@
                 url: '/village_state',
                 type: 'GET',
                 dataType: 'json',
-                success: function (data) {
-                    console.log(data)
+                success: function(data) {
+                    console.log(data);
                 },
                 error: function (xhr, status, error) {
                     console.error('Error fetching village state:', error);
@@ -109,41 +143,29 @@
             });
         }
 
-        function performAction() {
-            $.ajax({
-                url: `/perform_action/${$('#action_id :selected').val()}`,
-                type: 'POST',
-                success: function (data) {
-                    console.log("Sent action !")
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error performing the action:', error);
-                }
-            });
+        function fetchPublishStatus() {
+            fetch('/publish_status')
+            .then(r => r.json())
+            .then(data => {
+                updatePublishIndicator(data.publish_enabled);
+            })
+            .catch(err => console.error("Error fetching publish status:", err));
         }
 
-        function updateGraphs() {
-            $.ajax({
-                url: `/update_graph`,
-                type: 'GET',
-                success: function (data) {
-                    $('#plot').html(data)
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error performing the action:', error);
-                }
-            })
+        function updatePublishIndicator(isEnabled) {
+            document.getElementById('publish_indicator').textContent = isEnabled ? 'Enabled' : 'Disabled';
         }
 
         // Refresh every 5 seconds
         setInterval(fetchSensorData, 5000);
         setInterval(fetchVillageState, 5000);
-        // setInterval(updateGraphs, 5000);
+        setInterval(fetchPublishStatus, 5000); // Also refresh publish status periodically
 
         // Initial fetch when the page loads
         $(document).ready(function () {
             fetchSensorData();
-            fetchVillageState()
+            fetchVillageState();
+            fetchPublishStatus(); // Fetch initial publish status
         });
     </script>
 </body>
