@@ -14,6 +14,6 @@ To respect TTN standards, please check the [TTN documentation](../TTN/README.md)
 
 ## Electrical Mapping
 
-Brightness Sensor : Pin A0 
-Temperature Sensor : Pin A1 
+Brightness Sensor : Pin A0 \
+Temperature Sensor : Pin A1 \
 Sound Sensor : Pin A2 & Pin D-3
