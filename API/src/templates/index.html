@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Xmas of Things Dashboard</title>
@@ -10,45 +11,66 @@
         body {
             background-color: #f8f9fa;
         }
+
         .container {
             max-width: 800px;
         }
+
         .sensor-data {
             margin-bottom: 30px;
         }
+
         .action-form {
             margin-bottom: 30px;
         }
     </style>
+    {{ js_resources|indent(4)|safe }}
+    {{ css_resources|indent(4)|safe }}
 </head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center">Xmas of Things Dashboard</h1>
 
-        <div class="sensor-data">
-            <h3>Sensors Data</h3>
-            <ul class="list-group">
-                <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens</li>
-                <li class="list-group-item"><strong>Loudness:</strong> <span id="loudness">N/A</span> dB</li>
-                <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span> °C</li>
-                <li class="list-group-item"><strong>Last update:</strong> <span id="last_update">N/A</span></li>
-            </ul>
+<body>
+    <div style="display: flex; padding: 1rem; flex-wrap: wrap;">
+        <div class="container mt-5">
+            <h1 class="mb-4 text-center">Xmas of Things Dashboard</h1>
+
+            <div class="sensor-data">
+                <h3>Sensors Data</h3>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens
+                    </li>
+                    <li class="list-group-item"><strong>Loudness:</strong> <span id="loudness">N/A</span> dB</li>
+                    <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span> °C</li>
+                    <li class="list-group-item"><strong>Last update:</strong> <span id="last_update">N/A</span></li>
+                </ul>
+            </div>
+
+            <div class="action-form">
+                <h3>Send Action Command</h3>
+                <form method="POST" action="javascript:performAction()">
+                    <div class="form-group">
+                        <label for="action_id">Select Action:</label>
+                        <select class="form-control" id="action_id" name="action_id" required>
+                            <option value="" disabled selected>Choose an action</option>
+                            {% for id, name in actions.items() %}
+                            <option value="{{ id }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Action</button>
+                </form>
+            </div>
         </div>
 
-        <div class="action-form">
-            <h3>Send Action Command</h3>
-            <form method="POST" action="javascript:performAction()">
-                <div class="form-group">
-                    <label for="action_id">Select Action:</label>
-                    <select class="form-control" id="action_id" name="action_id" required>
-                        <option value="" disabled selected>Choose an action</option>
-                        {% for id, name in actions.items() %}
-                            <option value="{{ id }}">{{ name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Action</button>
-            </form>
+        <div class="container">
+            <div id="plot">
+                {{ script_temperature|safe }}
+                {{ div_temperature|safe }}
+                {{ script_brightness|safe }}
+                {{ div_brightness|safe }}
+                {{ script_loudness|safe }}
+                {{ div_loudness|safe }}
+            </div>
+            
         </div>
     </div>
 
@@ -61,13 +83,13 @@
                 url: '/last_sensors_entry',
                 type: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     $('#brightness').text(data.data.brightness);
                     $('#loudness').text(data.data.loudness);
                     $('#temperature').text(data.data.temperature);
                     $('#last_update').text(data.datetime_);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error fetching sensor data:', error);
                 }
             });
@@ -78,10 +100,10 @@
                 url: '/village_state',
                 type: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     console.log(data)
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error fetching village state:', error);
                 }
             });
@@ -91,24 +113,39 @@
             $.ajax({
                 url: `/perform_action/${$('#action_id :selected').val()}`,
                 type: 'POST',
-                success: function(data) {
+                success: function (data) {
                     console.log("Sent action !")
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error performing the action:', error);
                 }
             });
         }
 
+        function updateGraphs() {
+            $.ajax({
+                url: `/update_graph`,
+                type: 'GET',
+                success: function (data) {
+                    $('#plot').html(data)
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error performing the action:', error);
+                }
+            })
+        }
+
         // Refresh every 5 seconds
         setInterval(fetchSensorData, 5000);
         setInterval(fetchVillageState, 5000);
+        // setInterval(updateGraphs, 5000);
 
         // Initial fetch when the page loads
-        $(document).ready(function() {
+        $(document).ready(function () {
             fetchSensorData();
             fetchVillageState()
         });
     </script>
 </body>
+
 </html>
