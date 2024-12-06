@@ -44,6 +44,15 @@ def perform_action(action_id: int):
     logic_map.publish_actions([ActionsTTNPayload(ActionsEnum(int(action_id)))])
     return "", 204  # No content
 
+# New route to toggle publishing actions
+@app.route("/toggle_publish", methods=['POST'])
+def toggle_publish():
+    logic_map._publish_enabled = not logic_map._publish_enabled
+    return {"publish_enabled": logic_map._publish_enabled}, 200
+
+@app.route("/publish_status", methods=['GET'])
+def publish_status():
+    return {"publish_enabled": logic_map._publish_enabled}, 200
 
 def main():
     """Start Flask app"""
