@@ -48,6 +48,14 @@ def index():
     fig_brightness = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
     fig_loudness = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
 
+    fig_temperature.background_fill_alpha = 0
+    fig_brightness.background_fill_alpha = 0
+    fig_loudness.background_fill_alpha = 0
+
+    fig_temperature.border_fill_color = "#80ad71"
+    fig_brightness.border_fill_color = "#80ad71"
+    fig_loudness.border_fill_color = "#80ad71"
+
     fig_temperature.line('x', 'y', source=temperature_source, legend_label="Temperature", line_width=2, color='red')
     fig_brightness.line('x', 'y', source=brightness_source, legend_label="Brightness", line_width=2, color='blue')
     fig_loudness.line('x', 'y', source=loudness_source, legend_label="Loudness", line_width=2, color='green')
