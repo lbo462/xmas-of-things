@@ -31,6 +31,7 @@
                 <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens</li>
                 <li class="list-group-item"><strong>Loudness:</strong> <span id="loudness">N/A</span> dB</li>
                 <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span> °C</li>
+                <li class="list-group-item"><strong>Last update:</strong> <span id="last_update">N/A</span></li>
             </ul>
         </div>
 
@@ -64,6 +65,7 @@
                     $('#brightness').text(data.data.brightness);
                     $('#loudness').text(data.data.loudness);
                     $('#temperature').text(data.data.temperature);
+                    $('#last_update').text(data.datetime_);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching sensor data:', error);
