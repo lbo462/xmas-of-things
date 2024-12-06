@@ -42,27 +42,21 @@ def index():
 
     temperature_source = AjaxDataSource(data_url=request.url_root + "/update_temperature", polling_interval=5000, mode='replace')
     brightness_source = AjaxDataSource(data_url=request.url_root + "/update_brightness", polling_interval=5000, mode='replace')
-    loudness_source = AjaxDataSource(data_url=request.url_root + "/update_loudness", polling_interval=5000, mode='replace')
 
     fig_temperature = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
     fig_brightness = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
-    fig_loudness = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
 
     fig_temperature.background_fill_alpha = 0
     fig_brightness.background_fill_alpha = 0
-    fig_loudness.background_fill_alpha = 0
 
     fig_temperature.border_fill_color = "#80ad71"
     fig_brightness.border_fill_color = "#80ad71"
-    fig_loudness.border_fill_color = "#80ad71"
 
     fig_temperature.line('x', 'y', source=temperature_source, legend_label="Temperature", line_width=2, color='red')
     fig_brightness.line('x', 'y', source=brightness_source, legend_label="Brightness", line_width=2, color='blue')
-    fig_loudness.line('x', 'y', source=loudness_source, legend_label="Loudness", line_width=2, color='green')
 
     script_temperature, div_temperature = components(fig_temperature)
     script_brightness, div_brightness = components(fig_brightness)
-    script_loudness, div_loudness = components(fig_loudness)
 
     return render_template(
         "index.html",
@@ -71,8 +65,6 @@ def index():
         div_temperature=div_temperature,
         script_brightness=script_brightness,
         div_brightness=div_brightness,
-        script_loudness=script_loudness,
-        div_loudness=div_loudness,
         js_resources=js_resources,
         css_resources=css_resources
     )
@@ -90,13 +82,6 @@ def update_brightness():
     datetimes = [e.datetime_.timestamp() for e in logic_map.sensors_history]
 
     return jsonify(x=datetimes, y=brightness_data)
-
-@app.route("/update_loudness", methods=["POST"])
-def update_loudness():
-    loudness_data = [e.data.loudness for e in logic_map.sensors_history]
-    datetimes = [e.datetime_.timestamp() for e in logic_map.sensors_history]
-
-    return jsonify(x=datetimes, y=loudness_data)
 
 
 @app.route("/last_sensors_entry", methods=["GET"])
@@ -118,13 +103,16 @@ def perform_action(action_id: int):
 # New route to toggle publishing actions
 @app.route("/toggle_publish", methods=["POST"])
 def toggle_publish():
-    logic_map._publish_enabled = not logic_map._publish_enabled
-    return {"publish_enabled": logic_map._publish_enabled}, 200
+    if logic_map.is_active:
+        logic_map.deactivate()
+    else:
+        logic_map.activate()
+    return {"publish_enabled": logic_map.is_active}, 200
 
 
 @app.route("/publish_status", methods=["GET"])
 def publish_status():
-    return {"publish_enabled": logic_map._publish_enabled}, 200
+    return {"publish_enabled": logic_map.is_active}, 200
 
 
 def main():
@@ -133,7 +121,7 @@ def main():
     logic_map.start()
 
     try:
-        app.run(debug=True)
+        app.run()
     finally:
         logic_map.stop()
 
