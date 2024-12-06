@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #B9D2B1;
         }
 
         .container {
@@ -21,8 +21,58 @@
         .action-form {
             margin-bottom: 30px;
         }
+
         .status-message {
             margin-bottom: 20px;
+        }
+
+        h1,
+        h3,
+        .red-text {
+            color: #FF1B1C;
+            font-weight: 900;
+        }
+
+        .list-group-item {
+            background-color: #80ad71;
+        }
+
+        .form-control,
+        .form-control:focus {
+            background-color: hsl(105, 27%, 56%);
+        }
+
+        .btn-primary {
+            background-color: hsl(105, 27%, 46%);
+            border-color: hsl(105, 27%, 46%);
+        }
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active {
+            background-color: hsl(105, 27%, 36%) !important;
+            border-color: hsl(105, 27%, 36%) !important;
+        }
+
+
+
+        #snow_container {
+            position: absolute;
+            width: 100%;
+        }
+
+        @keyframes snowflake-fall {
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(1000px);
+            }
+        }
+
+        .snowflake {
+            animation: snowflake-fall 5s forwards;
+            max-width: 10px;
         }
     </style>
     {{ js_resources|indent(4)|safe }}
@@ -31,11 +81,13 @@
 
 <body>
     <div style="display: flex; padding: 1rem; flex-wrap: wrap;">
+        <div id="snow_container">
+        </div>
         <div class="container mt-5">
-            <h1 class="mb-4 text-center">Xmas of Things Dashboard</h1>
+            <h1 class="mb-4 text-center">🎄 Xmas of Things Dashboard 🎄</h1>
 
             <div class="sensor-data">
-                <h3>Sensors Data</h3>
+                <h3>🎅 Sensors Data 🎅</h3>
                 <ul class="list-group">
                     <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens
                     </li>
@@ -46,10 +98,10 @@
             </div>
 
             <div class="action-form">
-                <h3>Send Action Command</h3>
+                <h3>🎁 Send Action Command 🎁</h3>
                 <form method="POST" action="javascript:performAction()">
                     <div class="form-group">
-                        <label for="action_id">Select Action:</label>
+                        <label class="red-text" for="action_id">Select Action:</label>
                         <select class="form-control" id="action_id" name="action_id" required>
                             <option value="" disabled selected>Choose an action</option>
                             {% for id, name in actions.items() %}
@@ -60,11 +112,13 @@
                     <button type="submit" class="btn btn-primary">Send Action</button>
                 </form>
 
-            <!-- New section to display publish status and toggle button -->
-            <div class="mt-3">
-                <p>Logic Map Publish is currently: <span id="publish_indicator">Unknown</span></p>
-                <button type="button" class="btn btn-secondary" onclick="togglePublish()">Toggle Logic Publish</button>
-            </div>
+                <!-- New section to display publish status and toggle button -->
+                <div class="mt-3">
+                    <p class="red-text">Logic Map Publish is currently: <span id="publish_indicator">Unknown</span>
+                    </p>
+                    <button type="button" class="btn btn-primary" onclick="togglePublish()">Toggle Logic
+                        Publish</button>
+                </div>
             </div>
         </div>
 
@@ -77,7 +131,7 @@
                 {{ script_loudness|safe }}
                 {{ div_loudness|safe }}
             </div>
-            
+
         </div>
     </div>
 
@@ -91,23 +145,23 @@
             $.ajax({
                 url: `/perform_action/${$('#action_id :selected').val()}`,
                 type: 'POST',
-                success: function() {
+                success: function () {
                     console.log("Sent action!");
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error performing the action:', error);
                 }
             });
         }
 
         function togglePublish() {
-            fetch('/toggle_publish', {method: 'POST'})
-            .then(response => response.json())
-            .then(data => {
-                console.log("Publish toggled. Now:", data.publish_enabled);
-                updatePublishIndicator(data.publish_enabled);
-            })
-            .catch(err => console.error("Error toggling publish:", err));
+            fetch('/toggle_publish', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Publish toggled. Now:", data.publish_enabled);
+                    updatePublishIndicator(data.publish_enabled);
+                })
+                .catch(err => console.error("Error toggling publish:", err));
         }
 
         function fetchSensorData() {
@@ -115,7 +169,7 @@
                 url: '/last_sensors_entry',
                 type: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     if (data && data.data && data.datetime_) {
                         $('#brightness').text(data.data.brightness);
                         $('#loudness').text(data.data.loudness);
@@ -134,7 +188,7 @@
                 url: '/village_state',
                 type: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                 },
                 error: function (xhr, status, error) {
@@ -145,16 +199,27 @@
 
         function fetchPublishStatus() {
             fetch('/publish_status')
-            .then(r => r.json())
-            .then(data => {
-                updatePublishIndicator(data.publish_enabled);
-            })
-            .catch(err => console.error("Error fetching publish status:", err));
+                .then(r => r.json())
+                .then(data => {
+                    updatePublishIndicator(data.publish_enabled);
+                })
+                .catch(err => console.error("Error fetching publish status:", err));
         }
 
         function updatePublishIndicator(isEnabled) {
             document.getElementById('publish_indicator').textContent = isEnabled ? 'Enabled' : 'Disabled';
         }
+
+        function generateSnowflake() {
+            const windowWidth = window.innerWidth
+            const randomTrans = Math.floor(Math.random() * windowWidth);
+            const img = $('<img class="snowflake">')
+            img.attr('src', './static/snowflake-svgrepo-com2.svg')
+            img.css("translate", `${randomTrans}px`)
+            $('#snow_container').append(img)
+        }
+
+        setInterval(generateSnowflake, 10)
 
         // Refresh every 5 seconds
         setInterval(fetchSensorData, 5000);
