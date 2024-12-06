@@ -52,6 +52,18 @@ class LogicMap:
         )
 
     @property
+    def is_active(self):
+        return self._publish_enabled
+
+    def activate(self):
+        self._logger.info("Activated")
+        self._publish_enabled = True
+
+    def deactivate(self):
+        self._logger.info("Deactivated")
+        self._publish_enabled = False
+
+    @property
     def sensors_history(self) -> List[SensorHistoryEntry]:
         """History of every sensor data received, timestamped"""
         return self._sensors_history
@@ -68,7 +80,7 @@ class LogicMap:
 
         if (
             sensors_data.brightness < 100 and self._state.tree_star_on == False
-        ):  ##don't forget -- potentially add santa's proximity as condition
+        ):
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
             actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
             actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
@@ -77,22 +89,12 @@ class LogicMap:
 
         if (
             sensors_data.brightness > 100 and self._state.tree_star_on == True
-        ):  ##don't forget -- potentially add santa's proximity as condition
+        ):
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
             actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
             actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
             self._state.tree_star_on = False
             self._state.tree_led_on = False
-
-        if sensors_data.loudness > 10 and self._state.village_leds_on == False:
-            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED))
-            self._state.village_leds_on = True
-
-        if sensors_data.loudness < 10 and self._state.village_leds_on == True:
-            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.VILLAGE_LED))
-            self._state.village_leds_on = False
 
         if sensors_data.temperature < 30 and self._state.snow_spray == False:
             self._logger.info(f"Temperature is {sensors_data.temperature} C.")
@@ -111,10 +113,11 @@ class LogicMap:
         self._sensors_history.append(
             SensorHistoryEntry(data=sensors_data, datetime_=datetime.now(UTC))
         )
-        actions = self._map(sensors_data)
 
-        if actions and self._publish_enabled:
-            self.publish_actions(actions)
+        if self._publish_enabled:
+            actions = self._map(sensors_data)
+            if actions:
+                self.publish_actions(actions)
 
     def publish_actions(self, actions: List[ActionsTTNPayload]):
         with get_ttn_access_layer(
