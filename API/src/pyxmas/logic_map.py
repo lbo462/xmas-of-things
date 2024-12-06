@@ -30,8 +30,8 @@ class LogicMap:
         sensor_topic: Topic,
         action_topic: Topic,
         village_state: VillageState,
-    ):  
-        self._publish_enabled =   False
+    ):
+        self._publish_enabled = False
         self._ttn_app_id = ttn_app_id
         self._ttn_api_key = ttn_api_key
         self._ttn_base_url = ttn_base_url
@@ -112,7 +112,7 @@ class LogicMap:
             SensorHistoryEntry(data=sensors_data, datetime_=datetime.now(UTC))
         )
         actions = self._map(sensors_data)
-        
+
         if actions and self._publish_enabled:
             self.publish_actions(actions)
 
