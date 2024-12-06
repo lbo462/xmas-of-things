@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 from pyxmas.state import VillageState
 village_state = VillageState()
 
-# Initialize LogicMap without ttn_tenant_id
+# Initialize LogicMap 
 logic_map = LogicMap(
     ttn_app_id=TTN_APP_ID,
     ttn_api_key=TTN_API_KEY,
