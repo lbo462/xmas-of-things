@@ -1,5 +1,5 @@
 import time
-from datetime import datetime, UTC
+from datetime import datetime
 import logging
 from typing import List
 from dataclasses import dataclass
@@ -107,7 +107,7 @@ class LogicMap:
     def _on_sensors_data(self, sensors_data: SensorsTTNPayload):
         self._logger.info(f"Received {sensors_data}")
         self._sensors_history.append(
-            SensorHistoryEntry(data=sensors_data, datetime_=datetime.now(UTC))
+            SensorHistoryEntry(data=sensors_data, datetime_=datetime.now())
         )
 
         if self._publish_enabled:
