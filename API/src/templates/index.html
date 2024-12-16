@@ -8,6 +8,8 @@
     <style>
         body {
             background-color: #B9D2B1;
+            overflow: hidden;
+            width: auto;
         }
 
         .container {
@@ -57,7 +59,8 @@
 
         #snow_container {
             position: absolute;
-            width: 100%;
+            top: 0;
+            left: 0;
         }
 
         @keyframes snowflake-fall {
@@ -66,11 +69,12 @@
             }
 
             to {
-                transform: translateY(1000px);
+                transform: translateY(calc(100vh + 10px));
             }
         }
 
         .snowflake {
+            position: absolute;
             animation: snowflake-fall 5s forwards;
             max-width: 10px;
         }
@@ -238,11 +242,15 @@
 
         function generateSnowflake() {
             const windowWidth = window.innerWidth
-            const randomTrans = Math.floor(Math.random() * windowWidth);
+            var randomTrans = Math.floor(Math.random() * windowWidth) - 50;
+            randomTrans = randomTrans < 50 ? 50 : randomTrans
             const img = $('<img class="snowflake">')
             img.attr('src', './static/snowflake-svgrepo-com2.svg')
             img.css("translate", `${randomTrans}px`)
             $('#snow_container').append(img)
+            setTimeout(() => {
+                img.remove()
+            }, 10000)
         }
 
         setInterval(generateSnowflake, 10)
