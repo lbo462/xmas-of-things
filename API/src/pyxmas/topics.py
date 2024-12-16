@@ -78,7 +78,7 @@ wheel_topic = Topic(  # ferris wheel actionner
 leds_topic = Topic(  # leds actionner
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
-    device_id="christmas-star",
+    device_id="christmas-star-village-star",
     type_=TopicTypesEnum.DOWN_PUSH,
     payload_model=ActionsTTNPayload,
 )
