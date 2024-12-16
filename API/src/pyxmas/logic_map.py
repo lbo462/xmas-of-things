@@ -79,9 +79,7 @@ class LogicMap:
     def _map(self, sensors_data: SensorsTTNPayload) -> List[ActionsTTNPayload]:
         actions = []
 
-        if (
-            sensors_data.brightness < 100
-        ):
+        if sensors_data.brightness < 100:
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
 
             if self._state.leds_tree_on:
@@ -91,7 +89,7 @@ class LogicMap:
             if self._state.leds_village_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_OFF))
                 self._state.leds_village_on = False
-        
+
         else:
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
 
@@ -109,7 +107,7 @@ class LogicMap:
             self._state.lcd_2 = False
             self._state.lcd_hot = True
             self._state.lcd_cold = False
-        
+
         elif sensors_data.temperature < 20:
             actions.append(ActionsTTNPayload(ActionsEnum.LCD_COLD))
             self._state.lcd_1 = False
