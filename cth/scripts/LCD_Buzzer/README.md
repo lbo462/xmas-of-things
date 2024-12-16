@@ -11,10 +11,10 @@ Unlike Teensyduino, Arduino MKR WAN 1310 does not have an SD card slot. Thus, we
 
 | **Buzzers** | **MKR WAN 1310 Pin** |
 |-------------|----------------------|
-|             |                      |
-|             |                      |
+|Red          |GND                   |
+|Blac         |8                     |
 
-
+- If there's no more GND in the MKR WAN 1310, we can connect to the GND of the Arduino UNO R3
 
 ## Connect Arduino MKR WAN 1310 to Arduino UNO R3 for LCD display
 
