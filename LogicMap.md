@@ -35,16 +35,10 @@ TTN_PORT=1883
 
 Replace `<app-name>` and `<api-key>` with the correct values.
 
-- Start the script to launch the logic map:
+- Start the main script to launch the API:
 
 ```bash
-python start_logic_map.py
+python main.py
 ```
 
-- ... or start other sample script
-
-```bash
-python read_sensors.py  # read sensors data
-# or
-python read_actions_queue.py  # read actions sent by the logic map
-```
+- Go on the web interface at http://localhost:5000 and click on the button to turn on the logic map.
