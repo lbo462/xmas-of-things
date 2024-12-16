@@ -46,7 +46,6 @@ class SensorsTTNPayload(TTNBasePayload):
 
     temperature: int
     brightness: int
-    loudness: int
 
 
 @dataclass

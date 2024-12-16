@@ -14,8 +14,8 @@ To respect TTN standards, please check the [TTN documentation](../TTN/README.md)
 #include <MKRWAN.h>
 #include <DHT.h>
 
-#define APP_EUI "0000000000000000"
-#define APP_KEY "AC6DC50997CF1761BC19C1E32D8E9CCE"
+#define APP_EUI "xxxxxxxxxxxxxxxx"
+#define APP_KEY "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 LoRaModem modem;
 DHT my_dht;
@@ -24,7 +24,6 @@ const int photoresistorPin = A0;
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial);
 
   my_dht.setup(A1);
 

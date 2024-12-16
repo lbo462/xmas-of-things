@@ -86,13 +86,20 @@
         <div class="container mt-5">
             <h1 class="mb-4 text-center">🎄 Xmas of Things Dashboard 🎄</h1>
 
+            <div class="mt-3">
+                <p class="red-text">
+                    <h3>
+                        🤖 Logic map is <b><span id="publish_indicator">Unknown</span></b>
+                        <button type="button" id="toggle_logic_map_btn" class="btn btn-primary" onclick="togglePublish()">Turn </button>
+                    </h3>
+                </p>
+            </div>
+
             <div class="sensor-data">
                 <h3>🎅 Sensors Data 🎅</h3>
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span> lumens
-                    </li>
-                    <li class="list-group-item"><strong>Loudness:</strong> <span id="loudness">N/A</span> dB</li>
-                    <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span> °C</li>
+                    <li class="list-group-item"><strong>Brightness:</strong> <span id="brightness">N/A</span></li>
+                    <li class="list-group-item"><strong>Temperature:</strong> <span id="temperature">N/A</span></li>
                     <li class="list-group-item"><strong>Last update:</strong> <span id="last_update">N/A</span></li>
                 </ul>
             </div>
@@ -111,14 +118,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Send Action</button>
                 </form>
-
-                <!-- New section to display publish status and toggle button -->
-                <div class="mt-3">
-                    <p class="red-text">Logic Map Publish is currently: <span id="publish_indicator">Unknown</span>
-                    </p>
-                    <button type="button" class="btn btn-primary" onclick="togglePublish()">Toggle Logic
-                        Publish</button>
-                </div>
             </div>
         </div>
 
@@ -128,8 +127,6 @@
                 {{ div_temperature|safe }}
                 {{ script_brightness|safe }}
                 {{ div_brightness|safe }}
-                {{ script_loudness|safe }}
-                {{ div_loudness|safe }}
             </div>
 
         </div>
@@ -172,7 +169,6 @@
                 success: function (data) {
                     if (data && data.data && data.datetime_) {
                         $('#brightness').text(data.data.brightness);
-                        $('#loudness').text(data.data.loudness);
                         $('#temperature').text(data.data.temperature);
                         $('#last_update').text(data.datetime_);
                     }
@@ -207,7 +203,8 @@
         }
 
         function updatePublishIndicator(isEnabled) {
-            document.getElementById('publish_indicator').textContent = isEnabled ? 'Enabled' : 'Disabled';
+            document.getElementById('publish_indicator').textContent = isEnabled ? 'ON ⚙️' : 'OFF 🚫';
+            document.getElementById('toggle_logic_map_btn').textContent = isEnabled ? 'Turn OFF' : 'Turn ON';
         }
 
         function generateSnowflake() {
