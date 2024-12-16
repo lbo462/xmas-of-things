@@ -12,7 +12,8 @@ class VillageState:
     tree_led_on: bool = False
     tree_star_on: bool = False
     village_leds_on: bool = False
-    santa_track_on: bool = False
+    santa_track_on: bool = True
+
 
     ### Snow spray
 
@@ -23,7 +24,7 @@ class VillageState:
     music_off: bool = False
     music_1_on: bool = False
     music_2_on: bool = False
-    music_3_on: bool = False
+    music_3_on: bool = True
 
     ### Messages
 
@@ -33,4 +34,4 @@ class VillageState:
 
     ### Ferris wheel
 
-    wheel_turning: bool = False
+    wheel_turning: bool = True
