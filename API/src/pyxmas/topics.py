@@ -32,6 +32,8 @@ class ActionsEnum(IntEnum):
     LCD_1 = 40
     LCD_2 = 41
     LCD_OFF = 42
+    LCD_COLD = 43
+    LCD_HOT = 44
 
 
 @dataclass

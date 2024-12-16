@@ -80,28 +80,42 @@ class LogicMap:
         actions = []
 
         if (
-            sensors_data.brightness < 100 and self._state.leds_tree_on == False
-        ):  ##don't forget -- potentially add santa's proximity as condition
+            sensors_data.brightness < 100
+        ):
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
-            self._state.leds_tree_on = True
 
-        if (
-            sensors_data.brightness > 100 and self._state.leds_tree_on == True
-        ):  ##don't forget -- potentially add santa's proximity as condition
+            if self._state.leds_tree_on:
+                actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_OFF))
+                self._state.leds_tree_on = False
+
+            if self._state.leds_village_on:
+                actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_OFF))
+                self._state.leds_village_on = False
+        
+        else:
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
-            self._state.leds_tree_on = False
 
-        if sensors_data.loudness > 10 and self._state.leds_village_on == False:
-            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
-            self._state.leds_village_on = True
+            if not self._state.leds_tree_on:
+                actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
+                self._state.leds_tree_on = True
 
-        if sensors_data.loudness < 10 and self._state.leds_village_on == True:
-            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
-            self._state.leds_village_on = False
+            if not self._state.leds_village_on:
+                actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
+                self._state.leds_village_on = True
+
+        if sensors_data.temperature > 30:
+            actions.append(ActionsTTNPayload(action=ActionsEnum.LCD_HOT))
+            self._state.lcd_1 = False
+            self._state.lcd_2 = False
+            self._state.lcd_hot = True
+            self._state.lcd_cold = False
+        
+        elif sensors_data.temperature < 20:
+            actions.append(ActionsTTNPayload(ActionsEnum.LCD_COLD))
+            self._state.lcd_1 = False
+            self._state.lcd_2 = False
+            self._state.lcd_hot = False
+            self._state.lcd_cold = True
 
         return actions
 

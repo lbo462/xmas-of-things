@@ -21,3 +21,5 @@ class VillageState:
     #### lcd ####
     lcd_1: bool = False
     lcd_2: bool = False
+    lcd_cold: bool = False
+    lcd_hot: bool = False
