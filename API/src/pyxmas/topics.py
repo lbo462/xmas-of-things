@@ -12,8 +12,8 @@ class ActionsEnum(IntEnum):
     The enum value correspond to the value read by the CTH to activate its things.
     """
     #### MARY_GO_ON ####
-    MARY_GO_ON_ON = 0
-    MARY_GO_ON_OFF = 1
+    CAROUSEL_ON = 0
+    CAROUSEL_OFF = 1
     #### FERRIS_WHEEL ####
     FERRIS_WHEEL_ON = 10
     FERRIS_WHEEL_OFF = 11
@@ -31,33 +31,6 @@ class ActionsEnum(IntEnum):
     LCD_1 = 40
     LCD_2 = 41
     LCD_OFF = 42
-
-"""     #### LEDS ####
-
-    XMAS_TREE_LED = 0
-    XMAS_TREE_STAR = 1
-    VILLAGE_LED = 2
-    SANTA_TRACK_LED = 3
-
-    #### SPRAY ####
-
-    SNOW_SPRAY = 4
-
-    #### SONGS ####
-    STOP_MUSIC = 10
-    PLAY_SONG_1 = 11
-    PLAY_SONG_2 = 12
-    PLAY_SONG_3 = 13
-
-    #### MESSAGES ####
-
-    DISPLAY_NO_MESSAGE = 20
-    DISPLAY_MESSAGE_1 = 21
-    DISPLAY_MESSAGE_2 = 22
-
-    #### GRANDE ROUE ####
-
-    START_WHEEL = 30 """
 
 
 @dataclass

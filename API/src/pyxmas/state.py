@@ -8,7 +8,7 @@ class VillageState:
     """
 
     #### mary_go_on ####
-    mary_go_on_on :bool = False
+    carousel_on :bool = False
     #### ferris_wheel ####
     ferris_wheel_on :bool = False
     #### buzzers ####
