@@ -79,32 +79,28 @@ class LogicMap:
         actions = []
 
         if (
-            sensors_data.brightness < 100 and self._state.tree_star_on == False
-        ):
+            sensors_data.brightness < 100 and self._state.leds_tree_on == False
+        ):  ##don't forget -- potentially add santa's proximity as condition
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
-            actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
-            self._state.tree_star_on = True
-            self._state.tree_led_on = True
+            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
+            self._state.leds_tree_on = True
 
         if (
-            sensors_data.brightness > 100 and self._state.tree_star_on == True
-        ):
+            sensors_data.brightness > 100 and self._state.leds_tree_on == True
+        ):  ##don't forget -- potentially add santa's proximity as condition
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_STAR))
-            actions.append(ActionsTTNPayload(action=ActionsEnum.XMAS_TREE_LED))
-            self._state.tree_star_on = False
-            self._state.tree_led_on = False
+            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
+            self._state.leds_tree_on = False
 
-        if sensors_data.temperature < 30 and self._state.snow_spray == False:
-            self._logger.info(f"Temperature is {sensors_data.temperature} C.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.SNOW_SPRAY))
-            self._state.snow_spray = True
+        if sensors_data.loudness > 10 and self._state.leds_village_on == False:
+            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
+            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
+            self._state.leds_village_on = True
 
-        if sensors_data.temperature > 30 and self._state.snow_spray == True:
-            self._logger.info(f"Temperature is {sensors_data.temperature} C.")
-            actions.append(ActionsTTNPayload(action=ActionsEnum.SNOW_SPRAY))
-            self._state.snow_spray = False
+        if sensors_data.loudness < 10 and self._state.leds_village_on == True:
+            self._logger.info(f"Loudness is {sensors_data.loudness} dB.")
+            actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
+            self._state.leds_village_on = False
 
         return actions
 
