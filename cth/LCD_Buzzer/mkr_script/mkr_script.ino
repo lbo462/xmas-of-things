@@ -81,10 +81,10 @@ void setup() {
 
   Serial.begin(115200);  // USB connection
   Serial1.begin(9600);   // UART connection
-  while (!Serial);       // Wait for the Serial Monitor to open
+  //while (!Serial);       // Wait for the Serial Monitor to open
   Serial.println("MKR WAN is ready!");
 
-  while (!Serial);
+  //while (!Serial);
 
   if (!modem.begin(EU868)) {
     Serial.println("Failed to start module");
@@ -137,43 +137,53 @@ void loop() {
 
 void triggerAction(int actionId) {
   switch(actionId) {
-    case 10:
-      Serial.println("Stop song");
-      PlaySong = false;
-      noTone(buzzerPin);
-      break;
-    
-    case 11:
+    case 20:
       Serial.println("Merry Christmas song");
       currentSong = 11;
       PlaySong = true;
       break;
 
-    case 12:
+    case 21:
       Serial.println("Jingle Bells song");
       currentSong = 12;
       PlaySong = true;
       break;
 
-    case 13:
+    case 22:
       Serial.println("Santa song");
       currentSong = 13;
       PlaySong = true;
       break;
 
-    case 20:
-      Serial.println("No message");
-      sendMessageToLcd(0);
+    case 23:
+      Serial.println("Stop song");
+      PlaySong = false;
+      noTone(buzzerPin);
       break;
 
-    case 21:
+    case 40:
       Serial.println("Message : Merry Xmas");
       sendMessageToLcd(1);
       break;
 
-    case 22:
+    case 41:
       Serial.println("Message : Feliz Navidad");
       sendMessageToLcd(2);
+      break;
+
+    case 42:
+      Serial.println("No message");
+      sendMessageToLcd(0);
+      break;
+
+    case 43:
+      Serial.println("Message : Freezing Cold");
+      sendMessageToLcd(3);
+      break;
+    
+    case 44:
+      Serial.println("Message : Too Hot");
+      sendMessageToLcd(4);
       break;
 
     default:
@@ -236,6 +246,12 @@ void sendMessageToLcd(int messageId) {
       break;
     case 2:
       text = "Feliz Navidad";
+      break;
+    case 3:
+      text = "Freezing cold *";
+      break;
+    case 4:
+      text = "Too hot !!";
       break;
     case 100:
       text = "Welcome to IoT";

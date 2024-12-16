@@ -18,5 +18,6 @@ void loop() {
     lcd.clear(); // Clear the LCD
     lcd.setCursor(0, 0); // Set cursor to the beginning
     lcd.print(message); // Display the message on the LCD
+    
   }
 }
