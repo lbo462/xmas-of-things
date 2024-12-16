@@ -119,24 +119,20 @@
                     <button type="submit" class="btn btn-primary">Send Action</button>
                 </form>
             </div>
-    
-        <div class="village-state">
-            <h3>Village State</h3>
-            <ul class="list-group" id="village-state-list">
-            </ul>
-        </div>
-
-    </div>
-
-        <div class="container">
-            <div id="plot">
-                {{ script_temperature|safe }}
-                {{ div_temperature|safe }}
-                {{ script_brightness|safe }}
-                {{ div_brightness|safe }}
+            <div class="village-state">
+                <h3>Village State</h3>
+                <ul class="list-group" id="village-state-list">
+                </ul>
             </div>
-
         </div>
+            <div class="container">
+                <div id="plot">
+                    {{ script_temperature|safe }}
+                    {{ div_temperature|safe }}
+                    {{ script_brightness|safe }}
+                    {{ div_brightness|safe }}
+                </div>
+            </div>            
     </div>
 
     <!-- jQuery for AJAX -->
