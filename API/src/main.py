@@ -9,8 +9,10 @@ from pyxmas import (
     VillageState,
     LogicMap,
     sensors_topic,
-    action_topic1,
-    action_topic2,
+    wheel_topic,
+    leds_topic,
+    carousel_topic,
+    lcd_buzzer,
     ActionsEnum,
     ActionsTTNPayload,
 )
@@ -31,7 +33,7 @@ logic_map = LogicMap(
     ttn_base_url=TTN_BASE_URL,
     ttn_port=TTN_PORT,
     sensor_topic=sensors_topic,
-    actions_topic=[action_topic1, action_topic2],
+    actions_topic=[wheel_topic, leds_topic, carousel_topic, lcd_buzzer],
     village_state=village_state,
 )
 
@@ -150,7 +152,7 @@ def main():
     logic_map.start()
 
     try:
-        app.run()
+        app.run(host="0.0.0.0", debug=True)
     finally:
         logic_map.stop()
 

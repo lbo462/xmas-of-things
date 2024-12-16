@@ -67,18 +67,34 @@ sensors_topic = Topic(  # sensors
     payload_model=SensorsTTNPayload,
 )
 
-action_topic1 = Topic(  # actionners
+wheel_topic = Topic(  # ferris wheel actionner
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
-    device_id="cth-device",
+    device_id="big-wheel",
     type_=TopicTypesEnum.DOWN_PUSH,
     payload_model=ActionsTTNPayload,
 )
 
-action_topic2 = Topic(  # actionners
+leds_topic = Topic(  # leds actionner
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
-    device_id="cth-device-2",
+    device_id="christmas-star",
+    type_=TopicTypesEnum.DOWN_PUSH,
+    payload_model=ActionsTTNPayload,
+)
+
+carousel_topic = Topic(  # carousel actionner
+    app_id=TTN_APP_ID,
+    tenant_id=TTN_TENANT_ID,
+    device_id="manege",
+    type_=TopicTypesEnum.DOWN_PUSH,
+    payload_model=ActionsTTNPayload,
+)
+
+lcd_buzzer = Topic(  # lcd/buzzer actionners
+    app_id=TTN_APP_ID,
+    tenant_id=TTN_TENANT_ID,
+    device_id="lcd-receiver",
     type_=TopicTypesEnum.DOWN_PUSH,
     payload_model=ActionsTTNPayload,
 )

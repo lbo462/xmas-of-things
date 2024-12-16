@@ -6,6 +6,8 @@ from .topics import (
     SensorsTTNPayload,
     ActionsTTNPayload,
     sensors_topic,
-    action_topic1,
-    action_topic2,
+    wheel_topic,
+    leds_topic,
+    carousel_topic,
+    lcd_buzzer,
 )
