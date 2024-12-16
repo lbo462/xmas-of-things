@@ -152,7 +152,7 @@ def main():
     logic_map.start()
 
     try:
-        app.run(host="0.0.0.0", debug=True)
+        app.run(host="0.0.0.0")
     finally:
         logic_map.stop()
 
