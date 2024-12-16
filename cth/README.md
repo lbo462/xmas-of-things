@@ -230,19 +230,63 @@ void rotateWheel() {
 
 ```
 
-### Speakers
-- **City Song**
-  - We'll have a set of default songs stored in a SD and we receive the ID of the song to play.
+### Play songs using buzzer and display messages using LCD module
 
-```c++
+#### Connect the buzzers to Arduino MKR WAN 1310 to play songs
+
+**Overview**
+Unlike Teensyduino, Arduino MKR WAN 1310 does not have an SD card slot. Thus, we cannot play the songs directly from the SD card. We are playing the melody of the songs using the notes with different frequencies and durations.
+
+**Detailed Wiring Diagrams**
+
+- **Wiring for the buzzers to MKR WAN 1310:**
+
+| **Buzzers** | **MKR WAN 1310 Pin** |
+|-------------|----------------------|
+|Red          |GND                   |
+|Blac         |8                     |
+
+- If there's no more GND in the MKR WAN 1310, we can connect to the GND of the Arduino UNO R3
+
+#### Connect Arduino MKR WAN 1310 to Arduino UNO R3 for LCD display
+
+**Overview**
+The LCD module is not compatible with the Arduino MKR WAN 1310 but works with the Arduino UNO. Since the Arduino UNO cannot directly receive messages from the TTN, the Arduino MKR WAN will act as a middleman. The Arduino MKR WAN will send messages through Serial1 (UART connection, Tx/Rx), and the Arduino UNO will display the messages on the LCD.
+
+**Detailed Wiring Diagrams**
+
+- **Wiring for the LCD Module to Arduino Uno:**
+
+| **LCD Pin** | **Uno Pin** |
+|-------------|-------------|
+| GND         | GND         |
+| VCC         | 5V          |
+| SDA         | A4          |
+| SCL         | A5          |
+
+- **Wiring for Communication Between MKR WAN 1310 and Uno:**
+
+| **MKR WAN 1310 Pin** | **Uno Pin** |
+|----------------------|-------------|
+| 13->RX               | TX->1       |
+| 14<-TX               | RX<-0       |
+| GND                  | GND         |
+
+
+**Attention**
+The ```uno_script.ino``` and ```mkr_script.ino``` should be uploaded without the Tx/Rx connection. Once the upload process is complete, the connection can be made.
+
+#### Scripts
+- **mkr_script.ino**
+```
 #include <MKRWAN.h>
 
 #define FRAME_LENGTH 1
-#define APP_EUI "A8610A32303F7005"
-#define APP_KEY "E045F2B331258BF8BCF884A29A4BA70C"
+#define APP_EUI "0000000000000000"
+#define APP_KEY "C185BE8D31DDFA226F074201D1D2CCB9"
+#include "notes.h"
 
 LoRaModem modem;
-#include "notes.h"
 
 // Define the buzzer pin
 int buzzerPin = 8;
@@ -315,7 +359,11 @@ volatile bool PlaySong = false;
 int currentSong = 0;
 
 void setup() {
-  Serial.begin(115200);
+
+  Serial.begin(115200);  // USB connection
+  Serial1.begin(9600);   // UART connection
+  while (!Serial);       // Wait for the Serial Monitor to open
+  Serial.println("MKR WAN is ready!");
 
   while (!Serial);
 
@@ -334,6 +382,7 @@ void setup() {
     Serial.println("Something went wrong; are you indoor? Move near a window and retry");
     while (1) {}
   }
+  Serial.println("Successfully connected");
 }
 
 void loop() {
@@ -353,6 +402,9 @@ void loop() {
     
     // parse the frame and trigger actions
     int actionId = rcv[0];
+    Serial.print("Action ID: ");
+    Serial.println(actionId);
+    
     triggerAction(actionId);
   }
 
@@ -365,42 +417,54 @@ void loop() {
 }
 
 void triggerAction(int actionId) {
-  Serial.print("Proceed to action: ");
-  Serial.println(actionId, HEX);
-
   switch(actionId) {
-
-    case 20:
-      Serial.println("Santa song");
-      currentSong = 13;
-      PlaySong = true;
+    case 10:
+      Serial.println("Stop song");
+      PlaySong = false;
+      noTone(buzzerPin);
       break;
     
-    case 21:
+    case 11:
       Serial.println("Merry Christmas song");
       currentSong = 11;
       PlaySong = true;
       break;
 
-    case 22:
+    case 12:
       Serial.println("Jingle Bells song");
       currentSong = 12;
       PlaySong = true;
       break;
 
-    case 23:
-      Serial.println("Stop song");
-      PlaySong = false;
-      noTone(buzzerPin);
+    case 13:
+      Serial.println("Santa song");
+      currentSong = 13;
+      PlaySong = true;
+      break;
+
+    case 20:
+      Serial.println("No message");
+      sendMessageToLcd(0);
+      break;
+
+    case 21:
+      Serial.println("Message : Merry Xmas");
+      sendMessageToLcd(1);
+      break;
+
+    case 22:
+      Serial.println("Message : Feliz Navidad");
+      sendMessageToLcd(2);
       break;
 
     default:
-      Serial.print("Unknown action: ");
+      Serial.print("Unsupported action: ");
       Serial.println(actionId);
       break;
 
   }
 }
+
 
 void playCurrentSong() {
   switch (currentSong) {
@@ -439,12 +503,60 @@ void playNote(int note, int duration) {
 
   noTone(buzzerPin);
 }
-```
 
-### Display
-- **City Billboard**
-  - Displays messages when Santa arrives or based on custom input from the website.
-  - The messages will be a set of default messages and we receive the ID of the message to display.
+void sendMessageToLcd(int messageId) {
+  const char* text; // Declare a pointer for the text message
+  
+  // Assign text based on messageId
+  switch (messageId) {
+    case 0:
+      text = "";
+      break;
+    case 1:
+      text = "Merry Xmas";
+      break;
+    case 2:
+      text = "Feliz Navidad";
+      break;
+    case 100:
+      text = "Welcome to IoT";
+      break;
+    default:
+      text = "";
+      break;
+  }
+
+  Serial1.println(text);
+  Serial.println(text); // Debug message to the Serial Monitor
+  delay(1000);
+}
+```  
+
+- **uno_script.ino**
+```
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+
+// Initialize the LCD
+LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+void setup() {
+  lcd.init(); // Initialize the LCD
+  lcd.backlight(); // Turn on the backlight
+  lcd.begin(16, 2);
+  Serial.begin(9600); // Start serial communication
+}
+
+void loop() {
+  if (Serial.available() > 0) { // Check if there's data available
+    String message = Serial.readStringUntil('\n'); // Read data until newline character
+    message.trim(); // Remove any extra whitespace or newline characters
+    lcd.clear(); // Clear the LCD
+    lcd.setCursor(0, 0); // Set cursor to the beginning
+    lcd.print(message); // Display the message on the LCD
+  }
+}
+``` 
 
 ## Data Requirements
 
