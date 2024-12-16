@@ -130,7 +130,7 @@
                 </form>
             </div>
             <div class="village-state">
-                <h3>Village State</h3>
+                <h3>🏘️ Village State 🏘️</h3>
                 <ul class="list-group" id="village-state-list">
                 </ul>
             </div>
@@ -233,7 +233,7 @@
 
                     if (allFalseStates) { // whatever
                         villageStateList.append(
-                            '<p style="color: #FF1B1C; font-style:italic;">No state to be displayed</p>' // i'm very, utterly sorry
+                            '<p style="color: #FF1B1C; font-style:italic;">The whole village seems asleep ...</p>' // i'm very, utterly sorry
                         )
                     }
                 },
@@ -267,15 +267,15 @@
             $('#snow_container').append(img)
             setTimeout(() => {
                 img.remove()
-            }, 10000) // always clean up your mess
+            }, 10000) // always clean up your mess // as if you do
         }
 
-        setInterval(generateSnowflake, 10) // you could call me a genius if you dare
+        setInterval(generateSnowflake, 10) // you could call me a genius if you dare // you genius
 
         // Refresh every 5 seconds
-        setInterval(fetchSensorData, 5000);
-        setInterval(fetchVillageState, 5000);
-        setInterval(fetchPublishStatus, 5000); // Also refresh publish status periodically
+        setInterval(fetchSensorData, 1000);
+        setInterval(fetchVillageState, 1000);
+        setInterval(fetchPublishStatus, 1000); // Also refresh publish status periodically
 
         // Initial fetch when the page loads
         $(document).ready(function () {

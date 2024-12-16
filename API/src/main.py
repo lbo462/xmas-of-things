@@ -45,12 +45,12 @@ def index():
 
     temperature_source = AjaxDataSource(
         data_url=request.url_root + "/update_temperature",
-        polling_interval=5000,
+        polling_interval=1000,
         mode="replace",
     )
     brightness_source = AjaxDataSource(
         data_url=request.url_root + "/update_brightness",
-        polling_interval=5000,
+        polling_interval=1000,
         mode="replace",
     )
 

@@ -1,11 +1,9 @@
-import time
-from typing import List
 from datetime import datetime
 import logging
 from typing import List
 from dataclasses import dataclass
 
-from .state import VillageState
+from .state import VillageState, update_state
 from .topics import Topic, SensorsTTNPayload, ActionsTTNPayload, ActionsEnum
 from .ttn_al import get_ttn_access_layer
 from .ttn_al.access_layer import TTNAccessLayer
@@ -13,6 +11,10 @@ from .ttn_al.access_layer import TTNAccessLayer
 
 @dataclass
 class SensorHistoryEntry:
+    """
+    Defined how an entry is designed in the sensors data history of the logic map.
+    """
+
     data: SensorsTTNPayload
     datetime_: datetime
 
@@ -21,6 +23,16 @@ class SensorHistoryEntry:
 
 
 class LogicMap:
+    """
+    Brain implementation over the TTN access layer.
+
+    Require to be started with `logic_map.start()`.
+    Should be stopped with `logic_map.stop()`.
+
+    Two available modes:
+    - inactive: Just listen to receive data and stores it into its `sensors_history`
+    - active: Same as inactive, but react in real time with data, sends actions defined by `_map()` and update the state.
+    """
 
     def __init__(
         self,
@@ -57,10 +69,12 @@ class LogicMap:
         return self._publish_enabled
 
     def activate(self):
+        """Make the logic map react to data. Will send actions and update the village state"""
         self._logger.info("Activated")
         self._publish_enabled = True
 
     def deactivate(self):
+        """Stops the logic map to trigger any action. Passively listen and store data to its history"""
         self._logger.info("Deactivated")
         self._publish_enabled = False
 
@@ -77,47 +91,43 @@ class LogicMap:
         return None
 
     def _map(self, sensors_data: SensorsTTNPayload) -> List[ActionsTTNPayload]:
+        """
+        Heart of the machine.
+        Defines, when activated, what actions to take as a function of the current data received.
+
+        :param sensors_data: Data received from the sensors.
+        :return: The list of actions to send to the engines.
+        """
+
         actions = []
 
-        if sensors_data.brightness < 100:
+        # Brightness
+        if sensors_data.brightness < 512:  # 512 is half of 1024
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-
             if self._state.leds_tree_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_OFF))
-                self._state.leds_tree_on = False
-
             if self._state.leds_village_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_OFF))
-                self._state.leds_village_on = False
-
         else:
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
-
             if not self._state.leds_tree_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_ON))
-                self._state.leds_tree_on = True
-
             if not self._state.leds_village_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
-                self._state.leds_village_on = True
 
-        if sensors_data.temperature > 30:
+        # Temperature
+        if sensors_data.temperature >= 30:
             actions.append(ActionsTTNPayload(action=ActionsEnum.LCD_HOT))
-            self._state.lcd_1 = False
-            self._state.lcd_2 = False
-            self._state.lcd_hot = True
-            self._state.lcd_cold = False
-
-        elif sensors_data.temperature < 20:
+        elif sensors_data.temperature <= 20:
             actions.append(ActionsTTNPayload(ActionsEnum.LCD_COLD))
-            self._state.lcd_1 = False
-            self._state.lcd_2 = False
-            self._state.lcd_hot = False
-            self._state.lcd_cold = True
 
         return actions
 
     def _on_sensors_data(self, sensors_data: SensorsTTNPayload):
+        """
+        Callback func passed to the TTN access layer, triggered when a data is received from sensors.
+        Logs data to the history, and trigger actions if the logic map is activated.
+        """
         self._logger.info(f"Received {sensors_data}")
         self._sensors_history.append(
             SensorHistoryEntry(data=sensors_data, datetime_=datetime.now())
@@ -129,6 +139,10 @@ class LogicMap:
                 self.publish_actions(actions)
 
     def publish_actions(self, actions: List[ActionsTTNPayload]):
+        """
+        Publish actions on every action topic.
+        Actions should not interfere as they have different IDs.
+        """
         for topic in self._actions_topic:
             with get_ttn_access_layer(
                 self._ttn_app_id,
@@ -138,10 +152,15 @@ class LogicMap:
                 topic=topic,
             ) as ttn:
                 for action in actions:
+                    update_state(action.action, self._state)
                     ttn.publish(action)
 
     def start(self):
+        """Start the logic map, but do not activate it (i.e. only listens, but trigger no actions)"""
         self._ttn_al_sensors.start()
 
     def stop(self):
+        """Stop and deactivate the logic map."""
+        if self.is_active:
+            self.deactivate()
         self._ttn_al_sensors.stop()
