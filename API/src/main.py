@@ -9,7 +9,10 @@ from pyxmas import (
     VillageState,
     LogicMap,
     sensors_topic,
-    actions_topic,
+    wheel_topic,
+    leds_topic,
+    carousel_topic,
+    lcd_buzzer,
     ActionsEnum,
     ActionsTTNPayload,
 )
@@ -17,8 +20,8 @@ from pyxmas.settings import TTN_APP_ID, TTN_API_KEY, TTN_PORT, TTN_BASE_URL
 
 logging.basicConfig(level=logging.INFO)
 
-FIGURE_WIDTH=800
-FIGURE_HEIGHT=300
+FIGURE_WIDTH = 800
+FIGURE_HEIGHT = 300
 
 app = Flask(__name__)
 
@@ -30,7 +33,7 @@ logic_map = LogicMap(
     ttn_base_url=TTN_BASE_URL,
     ttn_port=TTN_PORT,
     sensor_topic=sensors_topic,
-    action_topic=actions_topic,
+    actions_topic=[wheel_topic, leds_topic, carousel_topic, lcd_buzzer],
     village_state=village_state,
 )
 
@@ -40,11 +43,23 @@ def index():
     js_resources = INLINE.render_js()
     css_resources = INLINE.render_css()
 
-    temperature_source = AjaxDataSource(data_url=request.url_root + "/update_temperature", polling_interval=5000, mode='replace')
-    brightness_source = AjaxDataSource(data_url=request.url_root + "/update_brightness", polling_interval=5000, mode='replace')
+    temperature_source = AjaxDataSource(
+        data_url=request.url_root + "/update_temperature",
+        polling_interval=1000,
+        mode="replace",
+    )
+    brightness_source = AjaxDataSource(
+        data_url=request.url_root + "/update_brightness",
+        polling_interval=1000,
+        mode="replace",
+    )
 
-    fig_temperature = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
-    fig_brightness = figure(width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type='datetime')
+    fig_temperature = figure(
+        width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type="datetime"
+    )
+    fig_brightness = figure(
+        width=FIGURE_WIDTH, height=FIGURE_HEIGHT, x_axis_type="datetime"
+    )
 
     fig_temperature.background_fill_alpha = 0
     fig_brightness.background_fill_alpha = 0
@@ -52,8 +67,22 @@ def index():
     fig_temperature.border_fill_color = "#80ad71"
     fig_brightness.border_fill_color = "#80ad71"
 
-    fig_temperature.line('x', 'y', source=temperature_source, legend_label="Temperature", line_width=2, color='red')
-    fig_brightness.line('x', 'y', source=brightness_source, legend_label="Brightness", line_width=2, color='blue')
+    fig_temperature.line(
+        "x",
+        "y",
+        source=temperature_source,
+        legend_label="Temperature",
+        line_width=2,
+        color="red",
+    )
+    fig_brightness.line(
+        "x",
+        "y",
+        source=brightness_source,
+        legend_label="Brightness",
+        line_width=2,
+        color="blue",
+    )
 
     script_temperature, div_temperature = components(fig_temperature)
     script_brightness, div_brightness = components(fig_brightness)
@@ -66,8 +95,9 @@ def index():
         script_brightness=script_brightness,
         div_brightness=div_brightness,
         js_resources=js_resources,
-        css_resources=css_resources
+        css_resources=css_resources,
     )
+
 
 @app.route("/update_temperature", methods=["POST"])
 def update_temperature():
@@ -75,6 +105,7 @@ def update_temperature():
     datetimes = [e.datetime_.timestamp() for e in logic_map.sensors_history]
 
     return jsonify(x=datetimes, y=temperature_data)
+
 
 @app.route("/update_brightness", methods=["POST"])
 def update_brightness():
@@ -121,7 +152,7 @@ def main():
     logic_map.start()
 
     try:
-        app.run()
+        app.run(host="0.0.0.0")
     finally:
         logic_map.stop()
 

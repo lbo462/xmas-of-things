@@ -6,8 +6,13 @@
     <title>Xmas of Things Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        html {
+            height: 100%;
+        }
         body {
             background-color: #B9D2B1;
+            width: auto;
+            min-height: 100%;
         }
 
         .container {
@@ -53,11 +58,10 @@
             border-color: hsl(105, 27%, 36%) !important;
         }
 
-
-
         #snow_container {
             position: absolute;
-            width: 100%;
+            top: 0;
+            left: 0;
         }
 
         @keyframes snowflake-fall {
@@ -66,13 +70,19 @@
             }
 
             to {
-                transform: translateY(1000px);
+                transform: translateY(calc(100vh + 10px));
+                /* +10px because the width of the snowflakes*/
             }
         }
 
         .snowflake {
+            position: absolute;
             animation: snowflake-fall 5s forwards;
             max-width: 10px;
+        }
+
+        #plot > div > div {
+            margin-top: 10px;
         }
     </style>
     {{ js_resources|indent(4)|safe }}
@@ -80,7 +90,7 @@
 </head>
 
 <body>
-    <div style="display: flex; padding: 1rem; flex-wrap: wrap;">
+    <div style="display: flex; padding: 1rem; flex-wrap: wrap; row-gap: 2rem; min-height: 100%;">
         <div id="snow_container">
         </div>
         <div class="container mt-5">
@@ -119,17 +129,21 @@
                     <button type="submit" class="btn btn-primary">Send Action</button>
                 </form>
             </div>
+            <div class="village-state">
+                <h3>🏘️ Village State 🏘️</h3>
+                <ul class="list-group" id="village-state-list">
+                </ul>
+            </div>
         </div>
-
         <div class="container">
+            <h3>📈 Magical Christmas Plots 📈</h3>
             <div id="plot">
                 {{ script_temperature|safe }}
                 {{ div_temperature|safe }}
                 {{ script_brightness|safe }}
                 {{ div_brightness|safe }}
             </div>
-
-        </div>
+        </div>            
     </div>
 
     <!-- jQuery for AJAX -->
@@ -161,6 +175,20 @@
                 .catch(err => console.error("Error toggling publish:", err));
         }
 
+        const imagePaths = {
+            "carousel_on" : "🎠",
+            "ferris_wheel_on" : "🤸",
+            "buzzers_1" : "🎵",
+            "buzzers_2" : "🎵",
+            "buzzers_3" : "🎵",
+            "leds_tree_on" : "🎄",
+            "leds_village_on" : "🏡",
+            "lcd_1" : "📝",
+            "lcd_2" : "📝",
+            "lcd_cold" : "🥶",
+            "lcd_hot" : "🔥",
+        };
+
         function fetchSensorData() {
             $.ajax({
                 url: '/last_sensors_entry',
@@ -186,6 +214,28 @@
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
+                    const villageStateList = $('#village-state-list');
+                    var allFalseStates = true;
+                    villageStateList.empty();
+
+                    for (const [key, value] of Object.entries(data)) {
+                        const normalizedKey = key;
+                        if (value && imagePaths[normalizedKey]) {
+                            allFalseStates = false; // how dumb you look
+                            villageStateList.append(
+                                `<li class="list-group-item state-item">
+                                    <span>${imagePaths[normalizedKey]}</span>
+                                    <strong>${normalizedKey.replace(/_/g, ' ').replace(/on$/, '')}</strong> is ON
+                                </li>`
+                            );
+                        }
+                    } 
+
+                    if (allFalseStates) { // whatever
+                        villageStateList.append(
+                            '<p style="color: #FF1B1C; font-style:italic;">The whole village seems asleep ...</p>' // i'm very, utterly sorry
+                        )
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error('Error fetching village state:', error);
@@ -207,21 +257,25 @@
             document.getElementById('toggle_logic_map_btn').textContent = isEnabled ? 'Turn OFF' : 'Turn ON';
         }
 
-        function generateSnowflake() {
+        function generateSnowflake() { // christmas magic basically
             const windowWidth = window.innerWidth
-            const randomTrans = Math.floor(Math.random() * windowWidth);
+            var randomTrans = Math.floor(Math.random() * windowWidth) - 50;
+            randomTrans = randomTrans < 50 ? 50 : randomTrans // desperate attempt at responsiveness, so desperate you could call it cute
             const img = $('<img class="snowflake">')
-            img.attr('src', './static/snowflake-svgrepo-com2.svg')
+            img.attr('src', './static/snowflake-svgrepo-com2.svg') // don't ask
             img.css("translate", `${randomTrans}px`)
             $('#snow_container').append(img)
+            setTimeout(() => {
+                img.remove()
+            }, 10000) // always clean up your mess // as if you do
         }
 
-        setInterval(generateSnowflake, 10)
+        setInterval(generateSnowflake, 10) // you could call me a genius if you dare // you genius
 
         // Refresh every 5 seconds
-        setInterval(fetchSensorData, 5000);
-        setInterval(fetchVillageState, 5000);
-        setInterval(fetchPublishStatus, 5000); // Also refresh publish status periodically
+        setInterval(fetchSensorData, 1000);
+        setInterval(fetchVillageState, 1000);
+        setInterval(fetchPublishStatus, 1000); // Also refresh publish status periodically
 
         // Initial fetch when the page loads
         $(document).ready(function () {
