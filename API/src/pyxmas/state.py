@@ -7,31 +7,17 @@ class VillageState:
     Keep track of the state of the village.
     """
 
-    ### LEDs
-
-    tree_led_on: bool = False
-    tree_star_on: bool = False
-    village_leds_on: bool = False
-    santa_track_on: bool = True
-
-
-    ### Snow spray
-
-    snow_spray: bool = False
-
-    ### Songs
-
-    music_off: bool = False
-    music_1_on: bool = False
-    music_2_on: bool = False
-    music_3_on: bool = True
-
-    ### Messages
-
-    no_message_displayed: bool = False
-    message_1_displayed: bool = False
-    message_2_displayed: bool = False
-
-    ### Ferris wheel
-
-    wheel_turning: bool = True
+    #### mary_go_on ####
+    mary_go_on_on :bool = False
+    #### ferris_wheel ####
+    ferris_wheel_on :bool = False
+    #### buzzers ####
+    buzzers_1 :bool = False
+    buzzers_2 :bool = False
+    buzzers_3 :bool = False
+    #### leds ####
+    leds_tree_on :bool = False
+    leds_village_on :bool = False
+    #### lcd ####
+    lcd_1 :bool = False
+    lcd_2 :bool = False
