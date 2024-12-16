@@ -1,4 +1,5 @@
 import time
+from typing import List
 from datetime import datetime
 import logging
 from typing import List
@@ -28,7 +29,7 @@ class LogicMap:
         ttn_base_url: str,
         ttn_port: int,
         sensor_topic: Topic,
-        action_topic: Topic,
+        actions_topic: List[Topic],
         village_state: VillageState,
     ):
         self._publish_enabled = False
@@ -37,7 +38,7 @@ class LogicMap:
         self._ttn_base_url = ttn_base_url
         self._ttn_port = ttn_port
         self._sensor_topic = sensor_topic
-        self._action_topic = action_topic
+        self._actions_topic = actions_topic
         self._state = village_state
 
         self._logger = logging.getLogger(__name__)
@@ -116,15 +117,16 @@ class LogicMap:
                 self.publish_actions(actions)
 
     def publish_actions(self, actions: List[ActionsTTNPayload]):
-        with get_ttn_access_layer(
-            self._ttn_app_id,
-            self._ttn_api_key,
-            self._ttn_base_url,
-            port=self._ttn_port,
-            topic=self._action_topic,
-        ) as ttn:
-            for action in actions:
-                ttn.publish(action)
+        for topic in self._actions_topic:
+            with get_ttn_access_layer(
+                self._ttn_app_id,
+                self._ttn_api_key,
+                self._ttn_base_url,
+                port=self._ttn_port,
+                topic=topic,
+            ) as ttn:
+                for action in actions:
+                    ttn.publish(action)
 
     def start(self):
         self._ttn_al_sensors.start()

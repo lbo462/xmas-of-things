@@ -11,6 +11,7 @@ class ActionsEnum(IntEnum):
     Defines every possible actions in the village.
     The enum value correspond to the value read by the CTH to activate its things.
     """
+
     #### MARY_GO_ON ####
     CAROUSEL_ON = 0
     CAROUSEL_OFF = 1
@@ -66,7 +67,7 @@ sensors_topic = Topic(  # sensors
     payload_model=SensorsTTNPayload,
 )
 
-actions_topic = Topic(  # actionners
+action_topic1 = Topic(  # actionners
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
     device_id="cth-device",
@@ -74,10 +75,10 @@ actions_topic = Topic(  # actionners
     payload_model=ActionsTTNPayload,
 )
 
-actions_queued_topic = Topic(  # monitoring
+action_topic2 = Topic(  # actionners
     app_id=TTN_APP_ID,
     tenant_id=TTN_TENANT_ID,
-    device_id="cth-device",
-    type_=TopicTypesEnum.DOWN_QUEUED,
+    device_id="cth-device-2",
+    type_=TopicTypesEnum.DOWN_PUSH,
     payload_model=ActionsTTNPayload,
 )

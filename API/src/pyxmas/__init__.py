@@ -6,6 +6,6 @@ from .topics import (
     SensorsTTNPayload,
     ActionsTTNPayload,
     sensors_topic,
-    actions_topic,
-    actions_queued_topic,
+    action_topic1,
+    action_topic2,
 )
