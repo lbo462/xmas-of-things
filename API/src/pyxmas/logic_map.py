@@ -4,7 +4,13 @@ from typing import List
 from dataclasses import dataclass
 
 from .state import VillageState, update_state
-from .topics import Topic, SensorsTTNPayload, ActionsTTNPayload, ActionsEnum
+from .topics import (
+    Topic,
+    SensorsTTNPayload,
+    ActionsTTNPayload,
+    ActionsEnum,
+    get_actions_per_topic,
+)
 from .ttn_al import get_ttn_access_layer
 from .ttn_al.access_layer import TTNAccessLayer
 
@@ -102,7 +108,7 @@ class LogicMap:
         actions = []
 
         # Brightness
-        if sensors_data.brightness < 512:  # 512 is half of 1024
+        if sensors_data.brightness < 200:
             self._logger.info(f"Brightness is {sensors_data.brightness} lumens.")
             if self._state.leds_tree_on:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_TREE_OFF))
@@ -116,7 +122,7 @@ class LogicMap:
                 actions.append(ActionsTTNPayload(action=ActionsEnum.LEDS_VILLAGE_ON))
 
         # Temperature
-        if sensors_data.temperature >= 30:
+        if sensors_data.temperature >= 25:
             actions.append(ActionsTTNPayload(action=ActionsEnum.LCD_HOT))
         elif sensors_data.temperature <= 20:
             actions.append(ActionsTTNPayload(ActionsEnum.LCD_COLD))
@@ -144,6 +150,8 @@ class LogicMap:
         Actions should not interfere as they have different IDs.
         """
         for topic in self._actions_topic:
+            available_actions = get_actions_per_topic(topic)
+
             with get_ttn_access_layer(
                 self._ttn_app_id,
                 self._ttn_api_key,
@@ -152,8 +160,9 @@ class LogicMap:
                 topic=topic,
             ) as ttn:
                 for action in actions:
-                    update_state(action.action, self._state)
-                    ttn.publish(action)
+                    if action.action in available_actions:
+                        update_state(action.action, self._state)
+                        ttn.publish(action)
 
     def start(self):
         """Start the logic map, but do not activate it (i.e. only listens, but trigger no actions)"""

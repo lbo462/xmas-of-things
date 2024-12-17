@@ -29,6 +29,7 @@ class TopicTypesEnum(Enum):
 
     UP = "up"
     DOWN_PUSH = "down/push"
+    DOWN_REPLACE = "down/replace"
     DOWN_QUEUED = "down/queued"
 
     @property

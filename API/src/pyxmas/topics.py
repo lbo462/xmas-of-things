@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, List
 
 from .ttn_al.topics import TTNBasePayload, Topic, TopicTypesEnum
 from .settings import TTN_APP_ID, TTN_TENANT_ID
@@ -70,3 +70,31 @@ lcd_buzzer = Topic(  # lcd/buzzer actionners
     type_=TopicTypesEnum.DOWN_PUSH,
     payload_model=ActionsTTNPayload,
 )
+
+
+def get_actions_per_topic(topic: Topic) -> List[ActionsEnum]:
+    if topic is wheel_topic:
+        return [ActionsEnum.FERRIS_WHEEL_ON, ActionsEnum.FERRIS_WHEEL_OFF]
+    elif topic is leds_topic:
+        return [
+            ActionsEnum.LEDS_TREE_OFF,
+            ActionsEnum.LEDS_TREE_ON,
+            ActionsEnum.LEDS_VILLAGE_OFF,
+            ActionsEnum.LEDS_VILLAGE_ON,
+        ]
+    elif topic is carousel_topic:
+        return [ActionsEnum.CAROUSEL_OFF, ActionsEnum.CAROUSEL_ON]
+    elif topic is lcd_buzzer:
+        return [
+            ActionsEnum.LCD_1,
+            ActionsEnum.LCD_2,
+            ActionsEnum.LCD_COLD,
+            ActionsEnum.LCD_HOT,
+            ActionsEnum.LCD_OFF,
+            ActionsEnum.BUZZERS_1,
+            ActionsEnum.BUZZERS_2,
+            ActionsEnum.BUZZERS_3,
+            ActionsEnum.BUZZERS_OFF,
+        ]
+    else:
+        raise NotImplementedError(f"{topic} not handled.")
