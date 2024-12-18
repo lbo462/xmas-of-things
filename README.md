@@ -2,7 +2,12 @@
 
 I think we should write a clear project description here.
 
-## Updated technical design
+__Where to start ?__
+
+First, read how teams were organized below.
+Then, read the [Getting started](GettingStarted.md) doc.
+
+## Technical design
 
 First technical design is below this one.
 
@@ -12,11 +17,11 @@ Find more detail about network exchanges in the [TTN documentation](TTN/README.m
 
 To put things simple:
 - SEN uses Arduino to read sensors data and send it to TTN. Check [SEN documentation](SEN/README.md)
-- TTN format sensors data for the logic map. Check [TTN documentation](TTN/README.md) and [Logic map](CTH/logic-map).
-- The logic map outputs actions and them to TTN. Check again [TTN documentation](TTN/README.md).
-- CTH read these actions command and triggers actual actions. Check [how to read actions command with Arduino](ReadActionsOnArduino.md). 
+- TTN format sensors data for the logic map. Check [TTN documentation](TTN/README.md).
+- The logic map outputs actions and them to TTN. Check [API documentation](API/LogicMap.md).
+- CTH read these actions command and triggers actual actions.
 
-## Initial technical design
+## Initial technical design (obsolete)
 
 ![initial-technical-design.png](misc/initial-techincal-design.png)
 
@@ -24,24 +29,24 @@ To put things simple:
 
 #### SEN - Sensors team
 
-In charge of reading values from various sensors, yet to be defined.
-These values are then set on the LoRa network and handled by the TTN team.
+In charge of reading values from various sensors.
+These values are then sent on the LoRa network and handled by the TTN team.
 
 #### API - API team
 
 In charge of monitoring the values sent by the sensors, after they were formatted.
-They will create a web interface, _probably using [Grafana](https://grafana.com/) 😉_ to display the data, and send action commands.
+They maintain the web interface, to display the data, and send action commands.
 
-They're also in charge of defining standard behind "action command" sent to the engines of the CTH team, probably in accordance with the TTN team.
+They're also in charge of defining standard behind "action command" sent to the engines of the CTH team, in accordance with the TTN team.
 
 #### CTH - Center Town Hall team
 
 Heart of the city actions, they drive the engines.
-Will take sensors data and action commands as input and output live action using engines, such as LED, servos, speaker, etc.
+Will take action commands as input and output live action using engines, such as LED, servos, speaker, etc.
 
 #### TTN - TTN team
 
-Format incoming data directly within the LoRa network so that the other team won't bother with different format and can refer to standarts defined here.
+Format incoming data directly within the LoRa network so that the other team won't bother with different format and can refer to standards defined here.
 
 #### DES - Design team
 

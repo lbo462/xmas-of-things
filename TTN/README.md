@@ -50,7 +50,7 @@ function decodeUplink(input) {
 
 ```json
 {
-  "humidity": 1,
+  "temperature": 1,
   "brightness": 1
 }
 ```
